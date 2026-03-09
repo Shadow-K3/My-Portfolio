@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+
+#animated-name .letters-after-t span,
+#animated-name .letters-after-b span {
+  opacity: 0;
+  transform: translateY(20%);
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Class to reveal each letter */
+#animated-name .letters-after-t span.visible,
+#animated-name .letters-after-b span.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-5px); }
+  50% { transform: translateY(5px); }
+  75% { transform: translateY(-3px); }
+}
+
+#wave-full {
+  display: inline-block;
+}
+
+.wave {
+  animation: wave 0.6s ease-in-out 2; /* 0.6s per wave, 2 times */
+}
+
+/* Sequential reveal of letters */
+#animated-name .letters-after-t span,
+#animated-name .letters-after-b span {
+  opacity: 0;
+  transform: translateY(20%);
+  display: inline-block;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#animated-name .letters-after-t span.visible,
+#animated-name .letters-after-b span.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Dropdown animation */
+#lang-dropdown ul {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+
+/* Dropdown mobile */
+/* Smooth transitions */
+#mobile-menu {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
+              opacity 0.5s ease, 
+              scale 0.5s ease;
+}

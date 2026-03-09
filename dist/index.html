@@ -1,0 +1,44 @@
+<!-- src/App.vue -->
+<template>
+    <div class="bg-[#0A192F] text-slate-400 font-mono text-lg min-h-screen relative overflow-x-hidden selection:bg-teal-400/30 selection:text-teal-200">
+        <FixedLeftSocials />
+        <Header @toggle-mobile="mobileMenuOpen = !mobileMenuOpen" />
+
+        <MobileMenu v-if="mobileMenuOpen" @close="mobileMenuOpen = false" />
+
+        <div class="bg-[#4E4E4E]/10">
+            <!-- Main Container -->
+            <div class="max-w-5xl bg-[#4E4E4E]/10 mx-auto px-4 md:px-8">
+                <Hero />
+                <Quote />
+                <ProjectsSection id="works" />
+                <SkillsSection />
+                <AboutSection id="about-me" />
+                <ContactsSection id="contacts" />
+            </div>
+            <Footer />
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+import Header from './components/Header.vue'
+import MobileMenu from './components/MobileMenu.vue'
+import Hero from './components/Hero.vue'
+import Quote from './components/Quote.vue'
+import ProjectsSection from './components/ProjectsSection.vue'
+import SkillsSection from './components/SkillsSection.vue'
+import AboutSection from './components/AboutSection.vue'
+import ContactsSection from './components/ContactsSection.vue'
+import Footer from './components/Footer.vue'
+import FixedLeftSocials from './Components/FixedLeftSocials.vue'
+import index from './assets/index.js'
+
+
+const mobileMenuOpen = ref(false)
+
+  // Initialize Lucide Icons
+      lucide.createIcons();
+</script>
