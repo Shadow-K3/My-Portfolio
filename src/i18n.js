@@ -62,7 +62,7 @@ const messages = {
                     badge: "SECURED_CORE"
                 },
                 saveurs: {
-                    title: "Saveurs Hosting",
+                    title: "Saveurs D'ebene",
                     desc: "A Restaurant reservation system with a secure backend, user-friendly interface, and real-time availability updates.",
                     badge: "STABLE_BUILD"
                 }
@@ -215,7 +215,7 @@ const messages = {
                     badge: "CŒUR_SÉCURISÉ"
                 },
                 saveurs: {
-                    title: "Saveurs Hosting",
+                    title: "Saveurs D'ebene",
                     desc: "Système de réservation de restaurant avec backend sécurisé, interface intuitive et mises à jour en temps réel.",
                     badge: "BUILD_STABLE"
                 }
