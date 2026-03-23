@@ -1,145 +1,144 @@
-<!-- <script setup>
-import router from '../router.js'
-</script> -->
-
-<template>
-  <!-- Header -->
-  <header
-    class="sticky top-0 left-0 w-full z-50 flex justify-between items-center py-8 px-6  backdrop-blur-md border-b border-white/5">
-    <!-- Animated Name with Icon -->
-    <div id="animated-name"
-      class="text-teal-400 font-medium text-lg flex items-center gap-2 tracking-tight overflow-hidden">
-      <i data-lucide="box" stroke-width="1.5" class="w-5 h-5"></i>
-
-      <div id="animated-name"
-        class="text-teal-400 font-medium text-lg flex items-center gap-2 tracking-tight overflow-hidden">
-        <!-- <i data-lucide="box" stroke-width="1.5" class="w-5 h-5"></i> -->
-
-        <!-- Entire name wrapper for sequential reveal + wave -->
-        <div id="full-name-wrapper" class="name-wrapper flex items-center whitespace-nowrap ml-2">
-          <!-- T fixed -->
-          <span class="initials">T</span>
-          <!-- Letters after T -->
-          <span class="letters-after-t flex gap-0.5 ml-1">
-            <span>c</span>
-            <span>h</span>
-            <span>o</span>
-            <span>u</span>
-            <span>m</span>
-            <span>i</span>
-          </span>
-
-          <!-- B fixed -->
-          <span class="initials ml-2">B</span>
-          <!-- Letters after B -->
-          <span class="letters-after-b flex gap-0.5 ml-1">
-            <span>e</span>
-            <span>r</span>
-            <span>o</span>
-            <span>l</span>
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <nav class="hidden md:flex items-center gap-8 text-lg">
-
-      <router-link to="/" class="text-white">
-        <span class="text-teal-400">#</span>home
-      </router-link>
-
-      <router-link to="/projects" class="text-slate-400 hover:text-white transition-colors">
-        <span class="text-teal-400">#</span>works
-      </router-link>
-
-      <router-link to="/about" class="text-slate-400 hover:text-white transition-colors">
-        <span class="text-teal-400">#</span>about-me
-      </router-link>
-
-      <router-link to="/contact" class="text-slate-400 hover:text-white transition-colors">
-        <span class="text-teal-400">#</span>contacts
-      </router-link>
-
-<!-- Language Dropdown -->
-  <div 
-    id="lang-dropdown"
-    class="relative flex items-center text-sm gap-1 text-slate-400 cursor-pointer hover:text-white transition-colors"
-    @click="toggleDropdown"
-  >
-    {{ selectedLang }}
-    <i 
-      data-lucide="chevron-down" 
-      class="w-4 h-4 transition-transform duration-300"
-      :class="{'rotate-180': dropdownOpen}"
-      stroke-width="1.5"
-    ></i>
-
-    <ul
-      class="absolute text-xs top-full left-0 mt-2 w-16 bg-[#1c2739]/70 border border-white rounded-md shadow-lg transition-all duration-300"
-      :class="{
-        'opacity-100 pointer-events-auto translate-y-0': dropdownOpen,
-        'opacity-0 pointer-events-none -translate-y-2': !dropdownOpen
-      }"
-    >
-      <li class="px-2 py-2 hover:bg-[#1c2739]/70" @click.stop="selectLang('EN')">EN</li>
-      <li class="px-2 py-2 hover:bg-[#1c2739]/70" @click.stop="selectLang('FR')">FR</li>
-    </ul>
-  </div>
-
-    </nav>
-
-    <!-- Mobile Menu Button -->
-    <button id="mobile-menu-button" class="md:hidden text-slate-400 hover:text-white z-50 relative">
-      <i data-lucide="menu" stroke-width="1.5" class="w-6 h-6 transition-transform duration-300"></i>
-    </button>
-
-    <!-- Mobile Menu Panel -->
-    <div id="mobile-menu"
-      class="fixed inset-0 bg-[#1c2739]/95 backdrop-blur-md flex flex-col items-center justify-center space-y-6 transform -translate-y-full scale-95 opacity-0 transition-all duration-500 z-40 pointer-events-none">
-      <a href="#home" class="text-white text-2xl hover:text-teal-400 transition-colors">Home</a>
-      <a href="#works" class="text-white text-2xl hover:text-teal-400 transition-colors">Works</a>
-      <a href="#about-me" class="text-white text-2xl hover:text-teal-400 transition-colors">About Me</a>
-      <a href="#contacts" class="text-white text-2xl hover:text-teal-400 transition-colors">Contacts</a>
-      <!-- Optional Language Selector for Mobile -->
-      <div id="mobile-lang-dropdown"
-        class="relative flex items-center text-sm gap-1 text-slate-400 cursor-pointer hover:text-white transition-colors">
-        EN
-        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" stroke-width="1.5"></i>
-        <ul
-          class="absolute text-xs top-full left-0 mt-2 w-16 bg-[#1c2739]/70 border border-white rounded-md shadow-lg opacity-0 pointer-events-none transform -translate-y-2 transition-all duration-300">
-          <li class="px-2 py-2 hover:bg-[#1c2739]/70">EN</li>
-          <li class="px-2 py-2 hover:bg-[#1c2739]/70">FR</li>
-        </ul>
-      </div>
-    </div>
-  </header>
-</template>
-
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { locale, t } = useI18n()
+
+// --- ÉTATS RÉACTIFS ---
 const dropdownOpen = ref(false)
-const selectedLang = ref('EN')
+const isMenuOpen = ref(false)
+// On initialise selectedLang basé sur la locale actuelle de i18n
+const selectedLang = ref(locale.value.toUpperCase())
 
-// Toggle dropdown open/close
-function toggleDropdown() {
+// --- FONCTIONS ---
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  document.body.style.overflow = isMenuOpen.value ? 'hidden' : ''
+}
+
+const toggleDropdown = (event) => {
+  event.stopPropagation()
   dropdownOpen.value = !dropdownOpen.value
 }
 
-// Select language and close dropdown
-function selectLang(lang) {
+const selectLang = (lang) => {
   selectedLang.value = lang
+  locale.value = lang.toLowerCase() // Change la langue globalement
+  localStorage.setItem('locale', lang.toLowerCase())
   dropdownOpen.value = false
-  console.log('Selected language:', lang)
+  isMenuOpen.value = false
+  document.body.style.overflow = ''
 }
 
-// Close dropdown if clicked outside
-function handleClickOutside(e) {
+const handleClickOutside = (e) => {
   if (!e.target.closest('#lang-dropdown')) {
     dropdownOpen.value = false
   }
 }
 
-onMounted(() => window.addEventListener('click', handleClickOutside))
-onBeforeUnmount(() => window.removeEventListener('click', handleClickOutside))
+onMounted(() => {
+  window.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('click', handleClickOutside)
+  document.body.style.overflow = ''
+})
 </script>
+
+<template>
+  <header class="sticky top-0 left-0 w-full z-[100] backdrop-blur-md border-b border-white/5">
+    <div class="max-w-[1200px] mx-auto flex justify-between items-center py-6 px-6">
+      
+      <div class="flex items-center gap-2 z-[110]">
+        <i data-lucide="box" stroke-width="1.5" class="w-5 h-5 text-teal-400"></i>
+        <div id="animated-name" class="flex items-center text-lg font-medium tracking-tight text-teal-400">
+          <div id="full-name-wrapper" class="flex items-center name-wrapper whitespace-nowrap">
+            <span class="initials">T</span>
+            <span class="letters-after-t hidden sm:flex gap-0.5 ml-1">choumi</span>
+            <span class="ml-2 initials">B</span>
+            <span class="letters-after-b hidden sm:flex gap-0.5 ml-1">erol</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="items-center hidden gap-8 font-mono text-sm md:flex">
+        <router-link 
+          v-for="item in [
+            {id:'home', p:'/'}, 
+            {id:'projects', p:'/projects'}, 
+            {id:'about', p:'/about'}, 
+            {id:'contact', p:'/contact'}
+          ]" 
+          :key="item.id" :to="item.p" 
+          class="pb-1 transition-all duration-300 border-b-2 border-transparent nav-link text-slate-400 hover:text-white"
+        >
+          <span class="text-teal-400">#</span>{{ $t(`nav.${item.id}`) }}
+        </router-link>
+
+        <div id="lang-dropdown" class="relative ml-4">
+          <button @click="toggleDropdown" class="flex items-center gap-1 uppercase transition-colors outline-none text-slate-400 hover:text-white">
+            {{ selectedLang }}
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': dropdownOpen}"></i>
+          </button>
+          
+          <Transition name="dropdown">
+            <ul v-if="dropdownOpen" class="absolute top-full right-0 mt-2 w-20 bg-[#1c2739] border border-white/10 rounded shadow-2xl py-1 z-50">
+              <li v-for="l in ['EN', 'FR']" :key="l" 
+                  @click="selectLang(l)" 
+                  class="px-4 py-2 text-xs uppercase transition-colors cursor-pointer hover:bg-teal-400/10 hover:text-teal-400">
+                {{ l }}
+              </li>
+            </ul>
+          </Transition>
+        </div>
+      </nav>
+
+      <button @click="toggleMenu" class="md:hidden text-slate-400 hover:text-white z-[110] relative p-2 focus:outline-none">
+        <div class="relative flex flex-col justify-between w-6 h-4">
+          <span :class="{'rotate-45 translate-y-1.5': isMenuOpen}" class="w-full h-0.5 bg-current transition-all duration-300"></span>
+          <span :class="{'opacity-0 -translate-x-2': isMenuOpen}" class="w-full h-0.5 bg-current transition-all duration-300"></span>
+          <span :class="{'-rotate-45 -translate-y-2': isMenuOpen}" class="w-full h-0.5 bg-current transition-all duration-300"></span>
+        </div>
+      </button>
+
+      <Transition name="fade-slide">
+        <div v-if="isMenuOpen" class="fixed top-0 left-0 w-screen h-[100dvh] bg-[#0B1120] z-[100] flex flex-col justify-between p-8 pt-32 pb-16">
+          <nav class="flex flex-col items-center gap-8">
+            <router-link 
+              v-for="(item, i) in [
+                {id:'home', p:'/'}, 
+                {id:'projects', p:'/projects'}, 
+                {id:'about', p:'/about'}, 
+                {id:'contact', p:'/contact'}
+              ]" 
+              :key="item.id" 
+              :to="item.p" 
+              @click="toggleMenu"
+              class="flex items-center gap-4 text-4xl font-bold tracking-tighter text-white mobile-nav-link"
+            >
+              <span class="font-mono text-xl text-teal-400">0{{ i + 1 }}.</span>
+              {{ $t(`nav.${item.id}`).toUpperCase() }}
+            </router-link>
+          </nav>
+
+          <div class="flex flex-col items-center gap-8 pt-8 font-mono border-t border-white/5">
+            <div class="flex gap-8">
+              <button 
+                v-for="l in ['EN', 'FR']" 
+                :key="l" 
+                @click="selectLang(l)" 
+                :class="selectedLang === l ? 'text-teal-400' : 'text-slate-500'" 
+                class="text-xl tracking-widest uppercase"
+              >
+                {{ l }}
+              </button>
+            </div>
+            <p class="text-[10px] text-slate-600 uppercase tracking-[0.3em]">© 2026 BEROL_DEV</p>
+          </div>
+        </div>
+      </Transition>
+    </div>
+  </header>
+</template>

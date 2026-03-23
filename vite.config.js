@@ -5,12 +5,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
-    vue(),  
+    vue(),
     tailwindcss(),
-    ],
+  ],
   resolve: {
     alias: {
-      '@': '/src',           // optional — allows import '@/components/Header.vue'
+      '@': '/src',
     }
   }
-})
+}) 

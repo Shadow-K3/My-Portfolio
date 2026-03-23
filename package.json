@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@tailwindcss/cli": "^4.2.1",
     "lucide": "^0.577.0",
     "vue": "^3.5.29",

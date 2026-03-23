@@ -1,143 +1,85 @@
 <template>
-      <!-- Projects Section -->
-        <section id="works" class="mb-32 relative">
-          <div class="flex items-center justify-between mb-12">
-            <div class="flex items-center gap-4 flex-grow">
-              <h2
-                class="text-3xl font-medium tracking-tight text-white flex items-center"
-              >
-                <span class="text-teal-400">#</span>projects
-              </h2>
-              <div class="h-px bg-teal-400/40 flex-grow max-w-[400px]"></div>
-            </div>
-            <a
-              href="#"
-              class="text-lg text-white hover:text-teal-400 transition-colors whitespace-nowrap hidden md:block"
-              >View all ~~></a
-            >
-          </div>
+  <section id="works" class="relative mb-32">
+    
+    <div class="flex items-center justify-between mb-12">
+      <div class="flex items-center flex-grow gap-4">
+        <h2 class="flex items-center text-3xl font-bold tracking-tight text-white cursor-default group">
+          <span class="text-teal-400 transition-transform group-hover:translate-x-1">#</span>
+          {{ $t('projects.title') }}
+        </h2>
+        <div class="h-[1px] bg-slate-800 flex-grow max-w-[400px] relative overflow-hidden">
+          <div class="absolute inset-0 bg-teal-400/40 translate-x-[-100%] animate-[slide_3s_infinite]"></div>
+        </div>
+      </div>
+      <router-link to="/projects" class="items-center hidden gap-2 font-mono text-sm transition-colors text-slate-400 hover:text-white whitespace-nowrap md:flex">
+        {{ $t('projects.viewAll') }} <span class="text-teal-400">~~></span>
+      </router-link>
+    </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Project 1 -->
-            <div class="border border-slate-700 flex flex-col bg-[#0B1120]">
-              <div
-                class="h-48 border-b border-slate-700 relative overflow-hidden flex flex-col justify-center items-center bg-slate-800"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=400"
-                  alt="ChertNodes"
-                  class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
-                />
-                <h3 class="text-2xl font-medium text-white z-10 tracking-tight">
-                  ChertNodes
-                </h3>
-                <p class="text-sm text-orange-400 z-10 mt-1">
-                  Minecraft servers hosting
-                </p>
-              </div>
-              <div class="p-3 border-b border-slate-700 text-slate-400 text-lg">
-                HTML SCSS Python Flask
-              </div>
-              <div class="p-5 flex flex-col flex-grow">
-                <h3 class="text-2xl font-medium text-white tracking-tight mb-3">
-                  Neuralearn
-                </h3>
-                <p class="text-slate-400 text-lg mb-6 flex-grow">
-                  Minecraft servers hosting
-                </p>
-                <div class="flex gap-4">
-                  <button
-                    class="border border-teal-400 text-white px-5 py-2 hover:bg-teal-400/10 text-lg font-normal transition-colors"
-                  >
-                    Live <span class="text-teal-400"><~></span>
-                  </button>
-                  <button
-                    class="border border-slate-600 text-slate-400 px-5 py-2 hover:bg-slate-800 text-lg font-normal transition-colors"
-                  >
-                    Cached >=
-                  </button>
-                </div>
-              </div>
-            </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      
+      <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
+        <div class="absolute z-20 flex items-center gap-2 px-2 py-1 border top-3 right-3 bg-slate-900/90 backdrop-blur-sm border-teal-500/30">
+            <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ $t('projects.list.ai.badge') }}</span>
+        </div>
+        <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
+              <img src="../assets/images/Ai.png" alt="Ai" class="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+        </div>
+        <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
+          FIGMA TAILWINDCSS JAVASCRIPT
+        </div>
+        <div class="flex flex-col flex-grow p-6">
+          <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-teal-400">{{ $t('projects.list.ai.title') }}</h3>
+          <p class="flex-grow mb-6 text-sm leading-relaxed text-slate-400">{{ $t('projects.list.ai.desc') }}</p>
+          <button class="flex items-center gap-2 px-4 py-2 font-mono text-xs text-white transition-all border border-teal-400/50 hover:bg-teal-400/10 w-fit">
+            {{ $t('projects.demo') }} <span class="text-teal-400">&lt;~&gt;</span>
+          </button>
+        </div>
+      </div>
 
-            <!-- Project 2 -->
-            <div class="border border-slate-700 flex flex-col bg-[#0B1120]">
-              <div
-                class="h-48 border-b border-slate-700 relative overflow-hidden flex flex-col justify-center items-center bg-slate-900"
-              >
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-teal-900/30 to-transparent"
-                ></div>
-                <div class="flex items-center gap-3 z-10">
-                  <i
-                    data-lucide="shield-check"
-                    class="w-10 h-10 text-teal-500"
-                    stroke-width="1.5"
-                  ></i>
-                  <h3 class="text-2xl font-medium text-white tracking-tight">
-                    PROTECTX
-                  </h3>
-                </div>
-              </div>
-              <div class="p-3 border-b border-slate-700 text-slate-400 text-lg">
-                React Express Discord.js Node.js<br />HTML SCSS Python Flask
-              </div>
-              <div class="p-5 flex flex-col flex-grow">
-                <h3 class="text-2xl font-medium text-white tracking-tight mb-3">
-                  Saveurs D'ebene
-                </h3>
-                <p class="text-slate-400 text-lg mb-6 flex-grow">
-                  Discord anti-crash bot
-                </p>
-                <div class="flex gap-4">
-                  <button
-                    class="border border-teal-400 text-white px-5 py-2 hover:bg-teal-400/10 text-lg font-normal transition-colors"
-                  >
-                    Live <span class="text-teal-400"><~></span>
-                  </button>
-                </div>
-              </div>
-            </div>
+      <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
+        <div class="absolute z-20 flex items-center gap-2 px-2 py-1 border top-3 right-3 bg-slate-900/90 backdrop-blur-sm border-teal-500/30">
+            <span class="relative flex h-1.5 w-1.5">
+                <span class="absolute inline-flex w-full h-full bg-teal-400 rounded-full opacity-75 animate-ping"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal-500"></span>
+            </span>
+            <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ $t('projects.list.neura.badge') }}</span>
+        </div>
+        <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
+              <img src="../assets/images/Neura.png" alt="Neura" class="object-contain w-full h-full p-4 transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+        </div>
+        <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
+          FIGMA UI/UX DESIGN
+        </div>
+        <div class="flex flex-col flex-grow p-6">
+          <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-teal-400">{{ $t('projects.list.neura.title') }}</h3>
+          <p class="flex-grow mb-6 text-sm leading-relaxed text-slate-400">{{ $t('projects.list.neura.desc') }}</p>
+          <button class="flex items-center gap-2 px-4 py-2 font-mono text-xs text-white transition-all border border-teal-400/50 hover:bg-teal-400/10 w-fit">
+            {{ $t('projects.design') }} <span class="text-teal-400">&lt;~&gt;</span>
+          </button>
+        </div>
+      </div>
 
-            <!-- Project 3 -->
-            <div class="border border-slate-700 flex flex-col bg-[#0B1120]">
-              <div
-                class="h-48 border-b border-slate-700 relative overflow-hidden flex flex-col justify-center items-center bg-indigo-950/50"
-              >
-                <h3
-                  class="text-3xl font-medium text-white z-10 tracking-tight italic"
-                >
-                  Kahoot!
-                </h3>
-                <p
-                  class="text-xl font-medium text-white z-10 mt-1 tracking-tight"
-                >
-                  Answers
-                </p>
-              </div>
-              <div class="p-3 border-b border-slate-700 text-slate-400 text-lg">
-                CSS Express Node.js
-              </div>
-              <div class="p-5 flex flex-col flex-grow">
-                <h3 class="text-2xl font-medium text-white tracking-tight mb-3">
-                  Kahoot Answers<br />Viewer
-                </h3>
-                <p class="text-slate-400 text-lg mb-6 flex-grow">
-                  Get answers to your kahoot quiz
-                </p>
-                <div class="flex gap-4">
-                  <button
-                    class="border border-teal-400 text-white px-5 py-2 hover:bg-teal-400/10 text-lg font-normal transition-colors"
-                  >
-                    Live <span class="text-teal-400"><~></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Decorative outline box -->
-          <div
-            class="absolute top-[40%] right-[-12vw] w-32 h-32 border border-slate-700/50 hidden xl:block"
-          ></div>
-        </section>
+      <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
+        <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
+          <img src="../assets/images/Saveurs.png" alt="Saveurs" class="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+        </div>
+        <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
+          PHP LARAVEL TAILWIND SQL
+        </div>
+        <div class="flex flex-col flex-grow p-6">
+          <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-teal-400">{{ $t('projects.list.saveurs.title') }}</h3>
+          <p class="flex-grow mb-6 text-sm leading-relaxed text-slate-400">{{ $t('projects.list.saveurs.desc') }}</p>
+          <button class="flex items-center gap-2 px-4 py-2 font-mono text-xs text-white transition-all border border-teal-400/50 hover:bg-teal-400/10 w-fit">
+            {{ $t('projects.root') }} <span class="text-teal-400">&lt;~&gt;</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="absolute top-[40%] right-[-5vw] w-32 h-32 border border-slate-800/50 rotate-12 pointer-events-none hidden xl:block">
+        <div class="w-full h-full -translate-x-2 -translate-y-2 border border-teal-500/10"></div>
+    </div>
+  </section>
 </template>
