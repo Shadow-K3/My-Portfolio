@@ -40,7 +40,7 @@ const navItems = [
 </script>
 
 <template>
-  <header class="sticky top-0 left-0 w-full z-[100] backdrop-blur-md border-b border-white/5 bg-[#0B1120]/80 font-mono">
+  <header class="sticky top-0 left-0 w-full z-[100] backdrop-blur-md border-b border-white/5 font-mono">
     <div class="max-w-[1200px] mx-auto flex justify-between items-center py-6 px-6">
       
       <router-link to="/" class="flex items-center gap-2 z-[110] group">

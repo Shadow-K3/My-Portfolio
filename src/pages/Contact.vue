@@ -51,6 +51,9 @@ const submitForm = () => {
   <main class="max-w-[1000px] mx-auto px-6 sm:pl-24 sm:pr-8 py-16 relative flex-1 w-full">
     
     <div class="mb-16">
+       <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
+          <span class="transition-transform group-hover:-translate-x-1"><~~</span> {{ $t('projectsPage.backHome') }}
+        </router-link>
       <h1 class="mb-4 font-mono text-4xl font-light tracking-tight text-white uppercase md:text-5xl">
         <span class="text-[#55B6C2]">/</span>{{ $t('contact.title') }}
       </h1>

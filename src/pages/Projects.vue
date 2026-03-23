@@ -23,7 +23,7 @@ const completeApps = [
   { title: 'Coffee Shop Website', descKey: 'projectsPage.coffee', tech: 'FIGMA TAILWINDCSS JAVASCRIPT', image: new URL('../assets/images/coffee.png', import.meta.url).href, secure: true },
   { title: 'EliteStore E-commerce', descKey: 'projectsPage.elite', tech: 'FIGMA TAILWINDCSS JAVASCRIPT', image: new URL('../assets/images/EliteStore.png', import.meta.url).href, secure: true },
   { title: 'Energy Management Dashboard', descKey: 'projectsPage.energy', tech: 'FIGMA TAILWINDCSS JAVASCRIPT', image: new URL('../assets/images/Energy.png', import.meta.url).href, secure: true },
-  { title: 'Modern Portfolio', descKey: 'projectsPage.port', tech: 'VUE.js THREE.JS TAILWIND', image: new URL('../assets/images/Portfolio.png', import.meta.url).href, secure: true }
+  { title: 'Modern Portfolio', descKey: 'projectsPage.port', tech: 'VUE.js THREE.JS TAILWIND', image: new URL('../assets/images/portfolio.png', import.meta.url).href, secure: true }
 ];
 
 const smallProjects = [

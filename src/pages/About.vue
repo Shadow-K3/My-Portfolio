@@ -79,6 +79,9 @@ onBeforeUnmount(() => {
     <div class="max-w-[1100px] mx-auto px-6 py-12 relative z-10">
         
         <div class="mb-16">
+             <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
+          <span class="transition-transform group-hover:-translate-x-1"><~~</span> {{ $t('projectsPage.backHome') }}
+        </router-link>
             <h1 class="mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl">
                 <span class="text-teal-400">/</span>{{ $t('aboutMe.skillsTitle') }}
             </h1>
