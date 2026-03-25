@@ -311,7 +311,8 @@ const messages = {
 
 const i18n = createI18n({
     legacy: false,
-    locale: localStorage.getItem('locale') || 'fr',
+    // Default to French during server/build time. Read from localStorage only in browser.
+    locale: 'fr',
     fallbackLocale: 'en',
     messages,
 })
