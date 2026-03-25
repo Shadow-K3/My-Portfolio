@@ -311,6 +311,8 @@ const messages = {
 
 const i18n = createI18n({
     legacy: false,
+    // Make `$t` and `$i18n` available globally in templates
+    globalInjection: true,
     // Default to French during server/build time. Read from localStorage only in browser.
     locale: 'fr',
     fallbackLocale: 'en',
