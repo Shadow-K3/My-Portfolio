@@ -1,3 +1,8 @@
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
+
 <template>
   <section id="about-me" class="relative py-12 mb-32">
     <div class="flex items-center gap-4 mb-16">
@@ -14,23 +19,23 @@
       <div class="w-full space-y-6 lg:w-3/5">
         <div class="space-y-4">
           <p class="font-mono text-xl text-white">
-            <span class="text-teal-400">></span> {{ $t('about.greeting') }}
-          </p>
+              <span class="text-teal-400">></span> {{ t('about.greeting') }}
+            </p>
           <div class="space-y-6 font-sans text-lg leading-relaxed text-slate-400">
             <i18n-t keypath="about.description" tag="p">
               <template #role1>
-                <span class="italic font-medium text-white">{{ $t('about.role1') }}</span>
+                <span class="italic font-medium text-white">{{ t('about.role1') }}</span>
               </template>
               <template #role2>
-                <span class="italic font-medium text-white">{{ $t('about.role2') }}</span>
+                <span class="italic font-medium text-white">{{ t('about.role2') }}</span>
               </template>
             </i18n-t>
           </div>
         </div>
 
-        <router-link to="/about" 
+          <router-link to="/about" 
           class="relative flex items-center gap-4 px-8 py-3 overflow-hidden font-mono text-sm text-white transition-all border group border-teal-400/50 hover:bg-teal-400/10 w-fit">
-          <span class="relative z-10 font-bold tracking-widest uppercase">{{ $t('about.cta') }}</span>
+          <span class="relative z-10 font-bold tracking-widest uppercase">{{ t('about.cta') }}</span>
           <i data-lucide="arrow-right" class="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-2" stroke-width="2"></i>
           <div class="absolute inset-0 transition-transform duration-300 -translate-x-full bg-teal-400/5 group-hover:translate-x-0"></div>
         </router-link>

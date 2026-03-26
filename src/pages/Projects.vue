@@ -59,17 +59,17 @@ const downloadCV = () => {
       
       <div class="mb-20">
         <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
-          <span class="transition-transform group-hover:-translate-x-1"><~~</span> {{ $t('projectsPage.backHome') }}
+          <span class="transition-transform group-hover:-translate-x-1"><~~</span> {{ t('projectsPage.backHome') }}
         </router-link>
         <h1 class="mb-4 text-4xl font-bold tracking-tight text-white uppercase md:text-5xl">
-          <span class="text-teal-400">/</span>{{ $t('projectsPage.title') }}
+          <span class="text-teal-400">/</span>{{ t('projectsPage.title') }}
         </h1>
-        <p class="font-mono text-lg italic text-slate-400">{{ $t('projectsPage.subtitle') }}</p>
+        <p class="font-mono text-lg italic text-slate-400">{{ t('projectsPage.subtitle') }}</p>
       </div>
 
       <section class="mb-24">
         <h2 class="flex items-center gap-4 mb-12 font-mono text-2xl font-bold text-white uppercase">
-          <span class="text-teal-400">#</span>{{ $t('projectsPage.apps') }}
+          <span class="text-teal-400">#</span>{{ t('projectsPage.apps') }}
           <div class="h-[1px] flex-1 bg-slate-800"></div>
         </h2>
 
@@ -86,7 +86,7 @@ const downloadCV = () => {
             </div>
             <div class="flex flex-col flex-grow p-6">
               <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-teal-400">{{ app.title }}</h3>
-              <p class="flex-grow mb-6 text-sm leading-relaxed text-slate-400">{{ $t(app.descKey) }}</p>
+              <p class="flex-grow mb-6 text-sm leading-relaxed text-slate-400">{{ t(app.descKey) }}</p>
               <a href="#" class="flex items-center gap-2 px-4 py-2 font-mono text-xs text-white border border-teal-400 hover:bg-teal-400/10 w-fit">
                 <i data-lucide="github" class="w-3.5 h-3.5"></i> SOURCE_CODE <span class="text-teal-400">~~></span>
               </a>
@@ -97,14 +97,14 @@ const downloadCV = () => {
 
       <section class="mb-24">
         <h2 class="flex items-center gap-4 mb-12 font-mono text-2xl font-bold text-white uppercase">
-          <span class="text-teal-400">#</span>{{ $t('projectsPage.small') }}
+          <span class="text-teal-400">#</span>{{ t('projectsPage.small') }}
           <div class="h-[1px] flex-1 bg-slate-800"></div>
         </h2>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div v-for="p in smallProjects" :key="p.title" class="p-5 border border-l-2 border-slate-800 bg-slate-900/30 hover:border-teal-400/30 hover:border-l-teal-400 group">
             <div class="text-[10px] font-mono text-teal-400/70 mb-2 uppercase">{{ p.tech }}</div>
             <h3 class="mb-2 text-lg font-bold text-white">{{ p.title }}</h3>
-            <p class="mb-4 text-xs italic text-slate-400">{{ $t(p.descKey) }}</p>
+            <p class="mb-4 text-xs italic text-slate-400">{{ t(p.descKey) }}</p>
             <a href="#" class="flex items-center gap-2 text-[10px] font-mono text-slate-500 hover:text-teal-400 uppercase">
               <i data-lucide="external-link" class="w-3 h-3"></i> Open_Source
             </a>
@@ -117,16 +117,16 @@ const downloadCV = () => {
               <div>
                   <h2 class="flex items-center gap-3 mb-2 font-mono text-2xl font-bold text-white">
                     <i data-lucide="file-text" class="text-teal-400"></i>
-                    <span class="text-teal-400">></span> {{ $t('projectsPage.cv.filename') }}
+                    <span class="text-teal-400">></span> {{ t('projectsPage.cv.filename') }}
                   </h2>
-                  <p class="text-slate-400">{{ $t('projectsPage.cv.desc') }}</p>
+                  <p class="text-slate-400">{{ t('projectsPage.cv.desc') }}</p>
               </div>
               <button @click="downloadCV" class="relative px-10 py-4 font-mono text-white border border-teal-400 hover:bg-teal-400/10 active:scale-95">
                   <span v-if="!isDownloading" class="flex items-center gap-3 italic uppercase">
-                    <i data-lucide="download" class="w-4 h-4"></i> {{ $t('projectsPage.cv.btn') }}
+                    <i data-lucide="download" class="w-4 h-4"></i> {{ t('projectsPage.cv.btn') }}
                   </span>
                   <span v-else class="text-teal-400 uppercase">
-                    {{ $t('projectsPage.cv.loading') }} {{ downloadProgress }}%
+                    {{ t('projectsPage.cv.loading') }} {{ downloadProgress }}%
                   </span>
                   <div :style="{ width: downloadProgress + '%' }" class="absolute bottom-0 left-0 h-[2px] bg-teal-400 transition-all duration-300"></div>
               </button>

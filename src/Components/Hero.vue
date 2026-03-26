@@ -67,7 +67,7 @@ onMounted(() => {
       <div class="relative z-10 md:w-1/2">
         <div class="min-h-[140px] md:min-h-[160px]">
           <h1 class="text-3xl md:text-[2.5rem] font-bold tracking-tight text-white mb-2 leading-tight">
-            {{ $t('hero.isA') }}
+            {{ t('hero.isA') }}
           </h1>
           <h2 class="text-4xl md:text-[3rem] font-bold tracking-tight text-teal-400 leading-tight flex items-center">
             {{ displayedTitle }}
@@ -76,11 +76,11 @@ onMounted(() => {
         </div>
         
         <p class="text-lg text-slate-300 mt-6 mb-10 max-w-[28rem] leading-relaxed">
-          {{ $t('hero.description') }}
+          {{ t('hero.description') }}
         </p>
         
         <button class="px-8 py-3 font-mono text-lg transition-all border border-slate-700 text-slate-300 hover:bg-teal-400/10 hover:text-teal-400 hover:border-teal-400/50 group">
-          {{ $t('hero.cta') }} <span class="inline-block transition-transform group-hover:translate-x-1">>_</span>
+          {{ t('hero.cta') }} <span class="inline-block transition-transform group-hover:translate-x-1">>_</span>
         </button>
       </div>
 
@@ -105,7 +105,7 @@ onMounted(() => {
 
           <div class="absolute bottom-11 left-[-2rem] md:left-2 border border-slate-700 bg-[#0B1120] p-1 pl-4 pr-6 flex items-center gap-3 text-xs text-slate-400 z-30 shadow-xl shadow-black/50 rounded">
             <div class="w-3 h-3 bg-teal-400 animate-pulse"></div>
-            {{ $t('hero.currentProject') }}
+            {{ t('hero.currentProject') }}
             <span class="font-mono font-bold text-indigo-400">SafeWatch360</span>
           </div>
         </div>

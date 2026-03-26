@@ -1,9 +1,14 @@
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
+
 <template>
   <section id="skills" class="relative mb-32 overflow-hidden lg:overflow-visible">
     <div class="flex items-center gap-4 mb-12">
-      <h2 class="flex items-center text-3xl font-bold tracking-tight text-white cursor-default group">
+        <h2 class="flex items-center text-3xl font-bold tracking-tight text-white cursor-default group">
         <span class="text-teal-400 transition-transform group-hover:translate-x-1">#</span>
-        {{ $t('skills.title') }}
+        {{ t('skills.title') }}
       </h2>
       <div class="h-[1px] bg-slate-800 flex-grow max-w-[250px] relative overflow-hidden">
          <div class="absolute inset-0 bg-teal-400/40 translate-x-[-100%] animate-[slide_4s_infinite]"></div>
@@ -39,7 +44,7 @@
         
         <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
           <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ $t('skills.categories.languages') }}
+            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.languages') }}
           </h3>
           <div class="flex flex-wrap gap-2 p-4">
             <span v-for="s in ['PHP', 'DART', 'JS', 'TS',]" :key="s" class="font-mono text-sm transition-colors cursor-default text-slate-400 hover:text-teal-400">
@@ -50,7 +55,7 @@
 
         <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
           <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ $t('skills.categories.frameworks') }}
+            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.frameworks') }}
           </h3>
           <div class="flex flex-wrap gap-2 p-4 font-mono text-sm text-slate-400">
             React • Vue • Laravel • Flutter • 
@@ -59,7 +64,7 @@
 
         <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group lg:row-span-1">
           <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ $t('skills.categories.databases') }}
+            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.databases') }}
           </h3>
           <div class="p-4 font-mono text-sm text-slate-400">
             SQLite • MariaDB •
@@ -68,7 +73,7 @@
 
         <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group md:col-span-2">
           <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ $t('skills.categories.tools') }}
+            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.tools') }}
           </h3>
           <div class="flex flex-wrap p-4 font-mono text-sm gap-x-6 gap-y-2 text-slate-400">
             <span>VSCODE</span> <span>LINUX (KALI/ARCH)</span> <span>FIGMA</span> <span>GIT</span> <span>DOCKER</span>
@@ -77,7 +82,7 @@
 
         <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
           <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ $t('skills.categories.webCore') }}
+            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.webCore') }}
           </h3>
           <div class="p-4 font-mono text-sm text-slate-400">
             HTML5 • CSS3 • TailwindCSS • Bootstrap

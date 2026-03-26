@@ -22,19 +22,19 @@
                   class="absolute inline-flex w-full h-full bg-teal-400 rounded-full opacity-75 animate-ping"></span>
                 <span class="relative inline-flex w-2 h-2 bg-teal-500 rounded-full"></span>
               </span>
-              {{ $t('footer.status') }}: <span class="text-teal-400">{{ $t('footer.online') }}</span>
+              {{ t('footer.status') }}: <span class="text-teal-400">{{ t('footer.online') }}</span>
             </div>
           </div>
 
-          <p class="max-w-sm font-mono text-sm leading-relaxed text-slate-500">
-            {{ $t('footer.tagline') }} <br>
-            {{ $t('footer.location') }}
+            <p class="max-w-sm font-mono text-sm leading-relaxed text-slate-500">
+            {{ t('footer.tagline') }} <br>
+            {{ t('footer.location') }}
           </p>
         </div>
 
         <div class="flex flex-col w-full gap-6 md:items-end md:w-auto">
           <div class="space-y-2 md:text-right">
-            <span class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">{{ $t('footer.reachOut') }}</span>
+            <span class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">{{ t('footer.reachOut') }}</span>
             <a href="mailto:tchoumiberol816@gmail.com"
               class="block text-lg text-white transition-colors hover:text-teal-400">
               tchoumiberol816@gmail.com
@@ -56,7 +56,7 @@
         class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between gap-4 text-[10px] font-mono text-slate-600 uppercase tracking-widest">
         <span>© 2026 ROOT_ACCESS_GRANTED</span>
         <span class="hidden text-slate-800 md:block">----------</span>
-        <span>{{ $t('footer.madeWith') }} <span class="text-teal-500">Vue.js</span> // No Rights Reserved</span>
+        <span>{{ t('footer.madeWith') }} <span class="text-teal-500">Vue.js</span> // No Rights Reserved</span>
       </div>
 
     </div>
@@ -69,7 +69,7 @@ import { onMounted, watch } from 'vue'
 import { createIcons, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
 import { useI18n } from 'vue-i18n'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 // Tes données sociales
 const footerSocials = [

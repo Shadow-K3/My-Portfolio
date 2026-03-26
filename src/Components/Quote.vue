@@ -11,9 +11,9 @@
         </span>
 
         <h2 class="font-mono text-xl italic font-medium leading-relaxed tracking-tight text-white uppercase md:text-3xl">
-          {{ $t('quote.part1') }} 
-          <span class="text-teal-400">{{ $t('quote.highlight') }}</span> 
-          {{ $t('quote.part2') }}
+          {{ t('quote.part1') }} 
+          <span class="text-teal-400">{{ t('quote.highlight') }}</span> 
+          {{ t('quote.part2') }}
         </h2>
 
         <span class="absolute -bottom-10 right-8 bg-[#0B1120] px-3 text-5xl text-teal-400 font-serif italic font-black select-none">
@@ -23,7 +23,7 @@
 
       <div class="border-2 border-slate-800 border-t-0 p-4 text-white font-mono text-sm absolute -bottom-[54px] right-0 w-64 text-right bg-[#0B1120] z-20 flex items-center justify-end gap-3 group-hover:border-teal-500/30 transition-colors duration-500">
         <span class="font-bold text-teal-500 animate-pulse">></span>
-        <span class="tracking-[0.2em] uppercase">{{ $t('quote.author') }}</span>
+        <span class="tracking-[0.2em] uppercase">{{ t('quote.author') }}</span>
       </div>
     </div>
 
@@ -31,6 +31,12 @@
     <div class="absolute top-0 right-[-8vw] w-32 h-32 border border-teal-500/5 -rotate-12 pointer-events-none hidden lg:block"></div>
   </section>
 </template>
+
+<script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
 
 <style scoped>
 /* Effet de glitch au survol pour le côté Hacker */
