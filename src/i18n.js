@@ -42,7 +42,20 @@ const messages = {
             cardTitle: "Message_Me_Here",
             whatsappLabel: "Whatsapp_Encrypted",
             emailLabel: "Direct_Email",
-            status: "STATUS: READY"
+            status: "STATUS: READY",
+            form: {
+                name: "Name",
+                email: "Email",
+                message: "Message",
+                placeholderName: "John Doe",
+                placeholderEmail: "john@example.com",
+                placeholderMsg: "Tell me about your project...",
+                btn: "SEND_MESSAGE"
+            },
+            sidebar: {
+                title: "Message me here",
+                socials: "Socials:"
+            }
         },
         projects: {
             title: "projects",
@@ -104,7 +117,6 @@ const messages = {
                 btn: "EXTRACT_DATA",
                 loading: "Encrypting..."
             },
-            // Descriptions des projets
             news: "A secure, responsive newsletter subscription page with email validation.",
             coffee: "Modern website for a local coffee shop with online menu and reservation.",
             elite: "Secure online store for a fashion brand with user authentication.",
@@ -135,23 +147,6 @@ const messages = {
                 "Student @ Getsmarter",
                 "I engineer before I code 🛠️"
             ]
-        },
-        contact: {
-            title: "contacts",
-            subtitle: "Let's build something secure together.",
-            form: {
-                name: "Name",
-                email: "Email",
-                message: "Message",
-                placeholderName: "John Doe",
-                placeholderEmail: "john@example.com",
-                placeholderMsg: "Tell me about your project...",
-                btn: "SEND_MESSAGE"
-            },
-            sidebar: {
-                title: "Message me here",
-                socials: "Socials:"
-            }
         }
     },
     fr: {
@@ -195,7 +190,20 @@ const messages = {
             cardTitle: "Contactez_Moi_Ici",
             whatsappLabel: "Whatsapp_Chiffré",
             emailLabel: "Email_Direct",
-            status: "STATUT : PRÊT"
+            status: "STATUT : PRÊT",
+            form: {
+                name: "Nom",
+                email: "E-mail",
+                message: "Message",
+                placeholderName: "Jean Dupont",
+                placeholderEmail: "jean@exemple.com",
+                placeholderMsg: "Parlez-moi de votre projet...",
+                btn: "ENVOYER_MESSAGE"
+            },
+            sidebar: {
+                title: "Contactez-moi ici",
+                socials: "Réseaux :"
+            }
         },
         projects: {
             title: "projets",
@@ -287,36 +295,19 @@ const messages = {
                 "Étudiant @ Getsmarter",
                 "Je conçois avant de coder 🛠️"
             ]
-        },
-        contact: {
-            title: "contacts",
-            subtitle: "Construisons quelque chose de sécurisé ensemble.",
-            form: {
-                name: "Nom",
-                email: "E-mail",
-                message: "Message",
-                placeholderName: "Jean Dupont",
-                placeholderEmail: "jean@exemple.com",
-                placeholderMsg: "Parlez-moi de votre projet...",
-                btn: "ENVOYER_MESSAGE"
-            },
-            sidebar: {
-                title: "Contactez-moi ici",
-                socials: "Réseaux :"
-            }
         }
-    },
-
+    }
 }
 
+// Logic to get initial locale from localStorage if available
+const savedLocale = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : 'fr';
+
 const i18n = createI18n({
-    // Use the legacy API (Options API) to match template usages
     legacy: true,
-    // Keep global injection so `$t` is available in templates
     globalInjection: true,
-    // Default to French during server/build time. Read from localStorage only in browser.
-    locale: 'fr',
+    locale: savedLocale || 'fr',
     fallbackLocale: 'en',
     messages,
 })
+
 export default i18n
