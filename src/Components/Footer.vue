@@ -66,10 +66,10 @@
 
 <script setup>
 import { onMounted, watch } from 'vue'
-import { createIcons, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
+import { createIcons, ArrowRight, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
 import { useI18n } from 'vue-i18n'
 
-const { locale, t } = useI18n()
+const { locale, t } = useI18n({ useScope: 'global' })
 
 // Tes données sociales
 const footerSocials = [
@@ -82,7 +82,7 @@ const refreshIcons = () => {
   // Un petit délai pour s'assurer que Vue a fini de rendre le HTML
   setTimeout(() => {
     createIcons({
-      icons: { Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck }
+      icons: { Box, ArrowRight, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck }
     })
   }, 10)
 }

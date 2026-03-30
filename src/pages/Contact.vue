@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import emailjs from '@emailjs/browser';
 
-const { t } = useI18n();
+const { t } = useI18n({ useScope: 'global' });
 
 const form = ref({
   name: '',

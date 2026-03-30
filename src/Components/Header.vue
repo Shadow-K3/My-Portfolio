@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 // Importation directe des icônes pour éviter le bug "Icon not found" en prod
 import { Box, ChevronDown } from 'lucide-vue-next'
 
-const { locale, t } = useI18n()
+const { locale, t } = useI18n({ useScope: 'global' })
 
 const dropdownOpen = ref(false)
 const isMenuOpen = ref(false)

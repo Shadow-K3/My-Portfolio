@@ -303,7 +303,7 @@ const messages = {
 const savedLocale = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : 'fr';
 
 const i18n = createI18n({
-    legacy: true,
+    legacy: false,
     globalInjection: true,
     locale: savedLocale || 'fr',
     fallbackLocale: 'en',
