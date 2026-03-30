@@ -60,7 +60,7 @@ onMounted(() => {
     
     <section 
       class="container px-6 flex flex-col md:flex-row items-center justify-between mb-24 gap-12 relative min-h-[80vh] bg-cover bg-center bg-no-repeat mx-auto"
-      style="background-image: url('/src/assets/images/back.avif');" 
+      style="background-image: url('/src/assets/images/back.png');" 
     >
       <div class="absolute inset-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/95 to-transparent z-0 opacity-95"></div>
 
