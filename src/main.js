@@ -10,6 +10,8 @@ const app = createApp(App);
 app.use(i18n);
 app.use(router);
 
+console.log('Test traduction:', i18n.global.t('nav.home'))
+
 // Debug: inspect i18n state before mounting (helps find undefined translations)
 if (typeof window !== 'undefined') {
     try {

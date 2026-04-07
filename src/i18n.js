@@ -303,11 +303,12 @@ const messages = {
 const savedLocale = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : 'fr';
 
 const i18n = createI18n({
-    legacy: false,
-    globalInjection: true,
-    locale: savedLocale || 'fr',
-    fallbackLocale: 'en',
-    messages,
+  legacy: false,          // Doit être false pour Vue 3
+  globalInjection: true,  // <--- AJOUTE CETTE LIGNE : Indispensable pour la prod
+  allowComposition: true, // <--- AJOUTE CETTE LIGNE : Pour autoriser le useI18n()
+  locale: 'fr',           // Pour le test, mets 'fr' en dur au lieu du localStorage
+  fallbackLocale: 'en',
+  messages,               // Tes messages que tu as écrit en dur
 })
 
 export default i18n
