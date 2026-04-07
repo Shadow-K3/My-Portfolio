@@ -299,16 +299,21 @@ const messages = {
     }
 }
 
-// Logic to get initial locale from localStorage if available
-const savedLocale = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : 'fr';
+// 1. On récupère la langue sauvegardée (ou 'fr' par défaut)
+const savedLocale = typeof window !== 'undefined' 
+    ? (localStorage.getItem('user-locale') || 'fr') 
+    : 'fr';
 
 const i18n = createI18n({
-  legacy: false,          // Doit être false pour Vue 3
-  globalInjection: true,  // <--- AJOUTE CETTE LIGNE : Indispensable pour la prod
-  allowComposition: true, // <--- AJOUTE CETTE LIGNE : Pour autoriser le useI18n()
-  locale: 'fr',           // Pour le test, mets 'fr' en dur au lieu du localStorage
+  legacy: false,
+  globalInjection: true,
+  allowComposition: true,
+  
+  // 2. UTILISE LA VARIABLE ICI (au lieu de 'fr' en dur)
+  locale: savedLocale, 
+  
   fallbackLocale: 'en',
-  messages,               // Tes messages que tu as écrit en dur
+  messages, 
 })
 
-export default i18n
+export default i18n;
