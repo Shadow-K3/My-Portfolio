@@ -1,53 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n({ useScope: 'global' })
-
-// Animation Globe
-const globeWrapper = ref<HTMLElement | null>(null)
-let rafId: number | null = null
-let currentRotation = 0
-let targetRotation = 0
-let lastScrollY = window.scrollY
-let isScrolling = false
-let scrollTimeout: any = null
-
-const AUTO_ROTATE_SPEED = 0.10
-const SCROLL_MULTIPLIER = -0.16
-const LERP_FACTOR = 0.07
-
-const animate = () => {
-    if (!isScrolling) targetRotation += AUTO_ROTATE_SPEED
-    currentRotation += (targetRotation - currentRotation) * LERP_FACTOR
-    if (globeWrapper.value) {
-        globeWrapper.value.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`
-    }
-    rafId = requestAnimationFrame(animate)
-}
-
-const onScroll = () => {
-    isScrolling = true
-    if (scrollTimeout) clearTimeout(scrollTimeout)
-    const currentScrollY = window.scrollY
-    const delta = currentScrollY - lastScrollY
-    targetRotation += delta * SCROLL_MULTIPLIER
-    lastScrollY = currentScrollY
-    scrollTimeout = setTimeout(() => { isScrolling = false }, 150)
-}
 
 // Données Skills & Education
 const skills = {
     Languages: "PHP TypeScript JavaScript Dart Python",
     FrontEnd: "Vue 3 React TailwindCSS Bootstrap CSS/HTML",
-    BackEnd: "Laravel Node.js MySQL PostgreSQL Firebase",
-    Tools: "Figma VSCode Linux Git Docker UML",
+    BackEnd: "Laravel Node.js",
+    Tools: "Figma VSCode Linux Git Docker UML Virtual Box",
     Security: "OWASP Top 10 Web Pentesting Nmap BurpSuite"
 }
 
-// Pour l'éducation, on utilise des clés de traduction pour la description si tu veux, 
-// ou on les laisse en dur si elles ne changent pas beaucoup. 
-// Ici, je les garde simples mais tu peux utiliser $t().
 const education = [
   {
     year: '2024 - Present',
@@ -61,56 +26,35 @@ const education = [
     institution: 'IUG Douala',
     description: 'Comprehensive training in networks and computer security.'
   }
-  // ... ajoute les autres ici
 ];
-
-onMounted(() => {
-    animate()
-    window.addEventListener('scroll', onScroll, { passive: true })
-})
-
-onBeforeUnmount(() => {
-    window.removeEventListener('scroll', onScroll)
-    if (rafId !== null) cancelAnimationFrame(rafId)
-})
 </script>
 
 <template>
-    <div class="max-w-[1100px] mx-auto px-6 py-12 relative z-10">
+    <div class="max-w-[1100px] mx-auto  py-12 relative z-10">
         
         <div class="mb-16">
-             <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
-          <span class="transition-transform group-hover:-translate-x-1"><~~</span> {{ $t('projectsPage.backHome') }}
-        </router-link>
+            <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
+                <span class="transition-transform group-hover:-translate-x-1">&lt;~~</span> {{ t('projectsPage.backHome') }}
+            </router-link>
             <h1 class="mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl">
-                <span class="text-teal-400">/</span>{{ $t('aboutMe.skillsTitle') }}
+                <span class="text-teal-400">/</span>{{ t('aboutMe.skillsTitle') }}
             </h1>
-            <p class="font-mono text-lg italic text-slate-400">{{ $t('aboutMe.whoami') }}</p>
+            <p class="font-mono text-lg italic text-slate-400">{{ t('aboutMe.whoami') }}</p>
         </div>
 
         <section class="relative flex flex-col items-center gap-12 mb-32 md:flex-row lg:gap-24">
-            
-            <div ref="globeWrapper" class="absolute top-1/2 left-1/2 pointer-events-none w-[100vw] h-[100vw] max-w-[800px] max-h-[800px] opacity-10">
-                <svg viewBox="0 0 200 200" class="w-full h-full stroke-teal-400 stroke-[0.2] fill-none">
-                    <circle cx="100" cy="100" r="99" />
-                    <ellipse cx="100" cy="100" rx="99" ry="30" />
-                    <ellipse cx="100" cy="100" rx="30" ry="99" />
-                    <circle cx="100" cy="100" r="50" stroke-dasharray="2 2" />
-                </svg>
-            </div>
-
             <div class="relative z-10 flex flex-col flex-1 gap-6 text-sm leading-relaxed text-slate-300">
-                <p class="font-mono text-lg text-teal-400">{{ $t('aboutMe.hello') }}</p>
+                <p class="font-mono text-lg text-teal-400">{{ t('aboutMe.hello') }}</p>
                 <p>
                     <i18n-t keypath="aboutMe.bio" tag="span">
-                        <template #dev><span class="font-medium text-white">{{ $t('aboutMe.roles.dev') }}</span></template>
-                        <template #design><span class="font-medium text-white">{{ $t('aboutMe.roles.design') }}</span></template>
-                        <template #security><span class="font-bold text-indigo-400 underline decoration-indigo-400/30">{{ $t('aboutMe.roles.security') }}</span></template>
+                        <template #dev><span class="font-medium text-white">{{ t('aboutMe.roles.dev') }}</span></template>
+                        <template #design><span class="font-medium text-white">{{ t('aboutMe.roles.design') }}</span></template>
+                        <template #security><span class="font-bold text-indigo-400 underline decoration-indigo-400/30">{{ t('aboutMe.roles.security') }}</span></template>
                     </i18n-t>
                 </p>
                 
                 <div class="p-4 border-l-2 border-teal-400 bg-teal-400/5 backdrop-blur-sm">
-                    <p class="mb-2 text-xs font-bold tracking-widest text-white uppercase">{{ $t('aboutMe.methodTitle') }}</p>
+                    <p class="mb-2 text-xs font-bold tracking-widest text-white uppercase">{{ t('aboutMe.methodTitle') }}</p>
                     <p class="text-xs">
                         <i18n-t keypath="aboutMe.methodDesc" tag="span">
                             <template #uml><span class="font-bold text-teal-400">UML</span></template>
@@ -136,7 +80,7 @@ onBeforeUnmount(() => {
 
         <section class="mb-32">
             <h2 class="flex items-center gap-4 mb-12 font-mono text-2xl font-bold text-white uppercase">
-                <span class="text-teal-400">#</span>{{ $t('aboutMe.skillsTitle') }}
+                <span class="text-teal-400">#</span>{{ t('aboutMe.skillsTitle') }}
                 <div class="h-[1px] flex-1 bg-slate-800"></div>
             </h2>
             <div class="grid grid-cols-1 gap-6 font-mono sm:grid-cols-2 lg:grid-cols-3">
@@ -153,7 +97,7 @@ onBeforeUnmount(() => {
 
         <section class="mb-32">
             <h2 class="flex items-center gap-4 mb-16 font-mono text-2xl font-bold text-white uppercase">
-                <span class="text-teal-400">#</span>{{ $t('aboutMe.eduTitle') }}
+                <span class="text-teal-400">#</span>{{ t('aboutMe.eduTitle') }}
                 <div class="h-[1px] flex-1 bg-slate-800"></div>
             </h2>
             <div class="relative ml-4 space-y-12 border-l border-slate-800 md:ml-8">
@@ -175,7 +119,7 @@ onBeforeUnmount(() => {
 
         <section>
             <h2 class="flex items-center gap-4 mb-12 font-mono text-2xl font-bold text-white uppercase">
-                <span class="text-teal-400">#</span>{{ $t('aboutMe.factsTitle') }}
+                <span class="text-teal-400">#</span>{{ t('aboutMe.factsTitle') }}
             </h2>
             <div class="flex flex-wrap gap-3">
                 <div v-for="fact in $tm('aboutMe.facts')" :key="fact" class="px-4 py-2 font-mono text-xs transition-all border cursor-default border-slate-800 text-slate-400 hover:text-teal-400 hover:border-teal-400">

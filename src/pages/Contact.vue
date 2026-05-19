@@ -48,7 +48,7 @@ const submitForm = () => {
 </script>
 
 <template>
-  <main class="max-w-[1000px] mx-auto px-6 sm:pl-24 sm:pr-8 py-16 relative flex-1 w-full">
+  <main class="max-w-[1000px] mx-auto   py-16 relative flex-1 w-full">
     
     <div class="mb-16">
        <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">

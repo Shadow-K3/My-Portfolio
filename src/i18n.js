@@ -136,7 +136,7 @@ const messages = {
             roles: { dev: "Full-Stack Developer", design: "UI/UX Designer", security: "Application Security (Pentesting)" },
             methodTitle: "Methodology: Architecture Before Action",
             methodDesc: "Every project begins with a rigorous {uml}. Mapping out logic before implementation ensures systems are maintainable, secure, and ready to scale.",
-            skillsTitle: "skills",
+            skillsTitle: "about-me",
             eduTitle: "education",
             factsTitle: "fun-facts",
             facts: [
@@ -284,7 +284,7 @@ const messages = {
             roles: { dev: "Développeur Full-Stack", design: "Designer UI/UX", security: "Sécurité Applicative (Pentesting)" },
             methodTitle: "Méthodologie : L'Architecture avant l'Action",
             methodDesc: "Chaque projet commence par une analyse {uml} rigoureuse. Modéliser la logique avant l'implémentation garantit des systèmes maintenables, sécurisés et évolutifs.",
-            skillsTitle: "compétences",
+            skillsTitle: "apropos",
             eduTitle: "formation",
             factsTitle: "infos-vrac",
             facts: [
@@ -299,21 +299,15 @@ const messages = {
     }
 }
 
-// 1. On récupère la langue sauvegardée (ou 'fr' par défaut)
-const savedLocale = typeof window !== 'undefined' 
-    ? (localStorage.getItem('user-locale') || 'fr') 
-    : 'fr';
+// Logic to get initial locale from localStorage if available
+const savedLocale = typeof window !== 'undefined' ? localStorage.getItem('user-locale') : 'fr';
 
 const i18n = createI18n({
-  legacy: false,
-  globalInjection: true,
-  allowComposition: true,
-  
-  // 2. UTILISE LA VARIABLE ICI (au lieu de 'fr' en dur)
-  locale: savedLocale, 
-  
-  fallbackLocale: 'en',
-  messages, 
+    legacy: false,
+    globalInjection: true,
+    locale: savedLocale || 'fr',
+    fallbackLocale: 'en',
+    messages,
 })
 
-export default i18n;
+export default i18n

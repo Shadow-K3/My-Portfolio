@@ -13,7 +13,6 @@ const typingSpeed = ref(100)
 
 // Fonction pour récupérer le titre actuel de manière sécurisée
 const getCurrentFullText = () => {
-  // On récupère le titre à l'index actuel (ex: hero.titles.0, hero.titles.1)
   return t(`hero.titles[${titleIndex.value}]`)
 }
 
@@ -36,7 +35,6 @@ const typeEffect = () => {
     typingSpeed.value = 2000 
   } else if (isDeleting.value && charIndex.value === 0) {
     isDeleting.value = false
-    // On passe au titre suivant (il y a 4 titres : 0, 1, 2, 3)
     titleIndex.value = (titleIndex.value + 1) % 4 
     typingSpeed.value = 500 
   }
@@ -88,10 +86,23 @@ onMounted(() => {
       <div class="relative z-10 flex justify-center md:w-1/2 md:justify-end">
         <div class="relative w-80 h-96">
           
-          <div class="absolute top-0 z-0 w-64 h-64 pointer-events-none right-12 md:right-24 opacity-80">
-            </div>
+          <div class="absolute -top-8 right-32 z-0 w-64 h-64 pointer-events-none opacity-60 filter drop-shadow-[0_0_15px_rgba(45,212,191,0.3)]">
+            <svg width="100%" height="100%" viewBox="0 0 156 156" fill="none">
+              <defs>
+                <filter id="glow-skills"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <path d="M77.5 78.5H38.75V117.25H77.5V156H0V39.75H77.5V78.5Z" stroke="#1e293b" stroke-width="1" />
+              <path d="M155 117.25H77.5V78.5H116.25V39.75H77.5V1H155V117.25Z" stroke="#1e293b" stroke-width="1" />
+              <path d="M77.5 78.5H38.75V117.25H77.5V156H0V39.75H77.5V78.5Z" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="40 120" filter="url(#glow-skills)">
+                <animate attributeName="stroke-dashoffset" from="160" to="0" dur="4s" repeatCount="indefinite" />
+              </path>
+              <path d="M155 117.25H77.5V78.5H116.25V39.75H77.5V1H155V117.25Z" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="40 120" filter="url(#glow-skills)">
+                <animate attributeName="stroke-dashoffset" from="160" to="0" dur="4s" begin="2s" repeatCount="indefinite" />
+              </path>
+            </svg>
+          </div>
 
-          <div class="relative z-10 flex items-end justify-center w-full h-full overflow-hidden rounded-lg shadow-2xl group shadow-black/70">
+          <div class="relative z-10 flex items-end justify-center w-full h-full overflow-hidden rounded-lg shadow-2xl group shadow-black/70 bg-[#0B1120]/50 build-border">
             <div class="absolute z-20 w-4 h-4 transition-opacity border-t-2 border-l-2 border-teal-400 opacity-0 top-2 left-2 group-hover:opacity-100"></div>
             <div class="absolute z-20 w-4 h-4 transition-opacity border-b-2 border-r-2 border-teal-400 opacity-0 bottom-2 right-2 group-hover:opacity-100"></div>
             

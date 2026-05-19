@@ -53,9 +53,9 @@ const downloadCV = () => {
 </script>
 
 <template>
-  <div class="min-h-screen font-sans text-slate-300 selection:bg-teal-500/30 ">
+  <div class="min-h-screen font-sans text-slate-300 selection:bg-teal-500/30">
     
-    <div class="max-w-[1100px] mx-auto px-6 pt-24 pb-12 relative z-10">
+    <div class="max-w-[1100px] mx-auto  pt-24 pb-12 relative z-10">
       
       <div class="mb-20">
         <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
@@ -79,7 +79,8 @@ const downloadCV = () => {
                 <span class="text-[9px] font-mono text-teal-400 uppercase font-bold">SECURE_CORE</span>
             </div>
             <div class="relative h-48 overflow-hidden border-b border-slate-800">
-              <img :src="app.image" :alt="app.title" class="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110" />
+              <!-- Image modifiée : grayscale uniquement sur desktop (md:) -->
+              <img :src="app.image" :alt="app.title" class="object-cover w-full h-full transition-all duration-700 md:grayscale md:group-hover:grayscale-0 group-hover:scale-110" />
             </div>
             <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
               {{ app.tech }}

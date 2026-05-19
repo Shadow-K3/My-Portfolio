@@ -23,12 +23,17 @@ const { t, locale } = useI18n({ useScope: 'global' })
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       
+      <!-- Projet AI -->
       <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
         <div class="absolute z-20 flex items-center gap-2 px-2 py-1 border top-3 right-3 bg-slate-900/90 backdrop-blur-sm border-teal-500/30">
-            <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ t('projects.list.ai.badge') }}</span>
+          <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ t('projects.list.ai.badge') }}</span>
         </div>
         <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
-              <img src="../assets/images/Ai.png" alt="Ai" class="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+          <img 
+            src="../assets/images/Ai.png" 
+            alt="Ai" 
+            class="object-cover w-full h-full transition-all duration-700 md:grayscale md:group-hover:grayscale-0 group-hover:scale-105" 
+          />
         </div>
         <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
           FIGMA TAILWINDCSS JAVASCRIPT
@@ -42,16 +47,21 @@ const { t, locale } = useI18n({ useScope: 'global' })
         </div>
       </div>
 
+      <!-- Projet Neura -->
       <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
         <div class="absolute z-20 flex items-center gap-2 px-2 py-1 border top-3 right-3 bg-slate-900/90 backdrop-blur-sm border-teal-500/30">
-            <span class="relative flex h-1.5 w-1.5">
-                <span class="absolute inline-flex w-full h-full bg-teal-400 rounded-full opacity-75 animate-ping"></span>
-                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal-500"></span>
-            </span>
-            <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ t('projects.list.neura.badge') }}</span>
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="absolute inline-flex w-full h-full bg-teal-400 rounded-full opacity-75 animate-ping"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-teal-500"></span>
+          </span>
+          <span class="text-[8px] font-mono text-teal-400 uppercase tracking-tighter">{{ t('projects.list.neura.badge') }}</span>
         </div>
         <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
-              <img src="../assets/images/Neura.png" alt="Neura" class="object-contain w-full h-full p-4 transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+          <img 
+            src="../assets/images/Neura.png" 
+            alt="Neura" 
+            class="object-contain w-full h-full p-4 transition-all duration-700 md:grayscale md:group-hover:grayscale-0 group-hover:scale-105" 
+          />
         </div>
         <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
           FIGMA UI/UX DESIGN
@@ -65,9 +75,14 @@ const { t, locale } = useI18n({ useScope: 'global' })
         </div>
       </div>
 
+      <!-- Projet Saveurs -->
       <div class="relative flex flex-col overflow-hidden transition-all border border-slate-800 bg-slate-900/40 hover:border-teal-400/40 group">
         <div class="relative h-48 overflow-hidden border-b border-slate-800 bg-slate-950">
-          <img src="../assets/images/Saveurs.png" alt="Saveurs" class="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105" />
+          <img 
+            src="../assets/images/Saveurs.png" 
+            alt="Saveurs" 
+            class="object-cover w-full h-full transition-all duration-700 md:grayscale md:group-hover:grayscale-0 group-hover:scale-105" 
+          />
         </div>
         <div class="p-2 border-b border-slate-800 text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/80">
           PHP LARAVEL TAILWIND SQL
@@ -83,8 +98,17 @@ const { t, locale } = useI18n({ useScope: 'global' })
 
     </div>
 
-    <div class="absolute top-[40%] right-[-5vw] w-32 h-32 border border-slate-800/50 rotate-12 pointer-events-none hidden xl:block">
-        <div class="w-full h-full -translate-x-2 -translate-y-2 border border-teal-500/10"></div>
-    </div>
+    <!--  -->
   </section>
 </template>
+
+<style scoped>
+/* Animation existante pour la barre de titre */
+@keyframes slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-[slide_3s_infinite] {
+  animation: slide 3s infinite;
+}
+</style>
