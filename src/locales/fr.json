@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "accueil",
+    "projects": "projets",
+    "about": "à-propos",
+    "contact": "contact"
+  },
+  "hero": {
+    "isA": "Berol est un",
+    "titles": [
+      "développeur full-stack",
+      "UI/UX designer",
+      "junior web pentester",
+      "architecte solution"
+    ],
+    "description": "Je conçois des sites web responsifs où la technologie rencontre la créativité. Basé à Douala, focus sur la sécurité et les architectures robustes.",
+    "cta": "Contactez-moi",
+    "currentProject": "Actuellement sur"
+  },
+  "about": {
+    "title": "à-propos",
+    "greeting": "Salut, je suis Berol !",
+    "description": "Je suis un {role1} et {role2}, formé à Getsmarter et basé à Douala, Cameroun. Mon parcours est guidé par un profond intérêt pour la création de solutions numériques modernes, fonctionnelles et esthétiques.",
+    "role1": "Développeur Full-Stack",
+    "role2": "UI/UX Designer",
+    "cta": "Lire_la_Bio",
+    "log": {
+      "title": "Audit de la Stack",
+      "env": "Environnement",
+      "security": "Sécurité",
+      "loc": "Lieu"
+    }
+  },
+  "contact": {
+    "title": "contacts",
+    "connection": "ÉTABLISSEMENT_CONNEXION...",
+    "subtitle": "Je suis actuellement ouvert aux {freelance} et aux collaborations sur des projets d'infrastructure sécurisée. Si vous avez une demande spécifique ou voulez juste dire salut, ma boîte mail est ouverte.",
+    "freelance": "opportunités en freelance",
+    "cardTitle": "Contactez_Moi_Ici",
+    "whatsappLabel": "Whatsapp_Chiffré",
+    "emailLabel": "Email_Direct",
+    "status": "STATUT : PRÊT",
+    "form": {
+      "name": "Nom",
+      "email": "E-mail",
+      "message": "Message",
+      "placeholderName": "Jean Dupont",
+      "placeholderEmail": "jean@exemple.com",
+      "placeholderMsg": "Parlez-moi de votre projet...",
+      "btn": "ENVOYER_MESSAGE"
+    },
+    "sidebar": {
+      "title": "Contactez-moi ici",
+      "socials": "Réseaux :"
+    }
+  },
+  "projects": {
+    "title": "projets",
+    "viewAll": "VOIR_TOUS_LES_LOGS",
+    "demo": "DEMO_LIVE",
+    "design": "VOIR_DESIGN",
+    "root": "ACCÈS_ROOT",
+    "list": {
+      "ai": {
+        "title": "AI Assistance",
+        "desc": "Assistant propulsé par l'IA offrant une gestion automatisée des tâches et des flux conversationnels intelligents.",
+        "badge": "IA_INTÉGRÉE"
+      },
+      "neura": {
+        "title": "Neuralearn",
+        "desc": "Plateforme d'apprentissage tech en ligne conçue pour étudiants et professionnels. Prototypes haute fidélité.",
+        "badge": "CŒUR_SÉCURISÉ"
+      },
+      "saveurs": {
+        "title": "Saveurs D'ebene",
+        "desc": "Système de réservation de restaurant avec backend sécurisé, interface intuitive et mises à jour en temps réel.",
+        "badge": "BUILD_STABLE"
+      }
+    }
+  },
+  "skills": {
+    "title": "compétences",
+    "categories": {
+      "languages": "Langages",
+      "frameworks": "Frameworks",
+      "databases": "Bases_de_données",
+      "tools": "Outils_&_Environnements",
+      "webCore": "Cœur_Web"
+    }
+  },
+  "quote": {
+    "part1": "Un grand",
+    "highlight": "déploiement",
+    "part2": "implique de grandes responsabilités et très peu de sommeil.",
+    "author": "Auteur : Berol"
+  },
+  "footer": {
+    "status": "État_Système",
+    "online": "En_Ligne",
+    "tagline": "// Construction d'infrastructures numériques sécurisées.",
+    "location": "// Basé à Douala, Cameroun.",
+    "reachOut": "Me_rejoindre",
+    "madeWith": "Conçu avec"
+  },
+  "projectsPage": {
+    "title": "projets",
+    "subtitle": "Liste de mes réalisations logicielles.",
+    "backHome": "RETOUR_RACINE",
+    "apps": "applications-complètes",
+    "small": "petits-projets",
+    "cv": {
+      "filename": "curriculum_vitae.pdf",
+      "desc": "Format PDF optimisé pour les recruteurs.",
+      "btn": "EXTRAIRE_DONNÉES",
+      "loading": "Chiffrement..."
+    },
+    "news": "Page d'abonnement newsletter sécurisée avec validation d'email.",
+    "coffee": "Site moderne pour un café local avec menu en ligne et réservations.",
+    "elite": "Boutique en ligne sécurisée pour une marque de mode.",
+    "energy": "Tableau de bord temps réel pour l'optimisation de l'énergie.",
+    "port": "Le site sur lequel vous naviguez. Design inspiré des terminaux.",
+    "fb": "Clone pixel-perfect de l'interface web de Facebook.",
+    "orange": "Reproduction du portail web d'Orange Cameroun.",
+    "insta": "Clone UI complet avec navigation fonctionnelle.",
+    "medi": "Landing page pour un système de gestion hospitalière.",
+    "uba": "Reproduction de l'interface bancaire d'UBA.",
+    "camtel": "Clone du site institutionnel de Camtel."
+  },
+  "aboutMe": {
+    "whoami": "root@berol:~$ qui_suis_je",
+    "hello": "Salut, je suis Berol !",
+    "bio": "Je suis {dev} et {design} avec une spécialisation en {security}. Formé à Getsmarter et basé à Douala, Cameroun, je fais le pont entre les besoins métier complexes et les solutions numériques robustes.",
+    "roles": {
+      "dev": "Développeur Full-Stack",
+      "design": "Designer UI/UX",
+      "security": "Sécurité Applicative (Pentesting)"
+    },
+    "methodTitle": "Méthodologie : L'Architecture avant l'Action",
+    "methodDesc": "Chaque projet commence par une analyse {uml} rigoureuse. Modéliser la logique avant l'implémentation garantit des systèmes maintenables, sécurisés et évolutifs.",
+    "skillsTitle": "apropos",
+    "eduTitle": "formation",
+    "factsTitle": "infos-vrac",
+    "facts": [
+      "Je n'aime pas les photos 📸",
+      "J'ai voyagé 3 ans dans le passé pour cette photo de portfolio 😂",
+      "Gamer & fan de ciné 🎮",
+      "Fier d'être Camerounais 🇨🇲",
+      "Étudiant @ Getsmarter",
+      "Je conçois avant de coder 🛠️"
+    ]
+  }
+}
