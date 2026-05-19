@@ -2,6 +2,8 @@
 import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 // import back from '@/assets/images/back.png'
+import backImg from '@/assets/images/back.png';
+import meImg from '@/assets/images/me.png';
 
 const { t, locale } = useI18n({ useScope: 'global' })
 
@@ -59,7 +61,7 @@ onMounted(() => {
     
     <section 
       class="container px-6 flex flex-col md:flex-row items-center justify-between mb-24 gap-12 relative min-h-[80vh] bg-cover bg-center bg-no-repeat mx-auto"
-      style="background-image: url('/src/assets/images/back.png');" 
+      :style="{ backgroundImage: `url(${backImg})` }"
     >
       <div class="absolute inset-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/95 to-transparent z-0 opacity-95"></div>
 
@@ -107,7 +109,7 @@ onMounted(() => {
             <div class="absolute z-20 w-4 h-4 transition-opacity border-b-2 border-r-2 border-teal-400 opacity-0 bottom-2 right-2 group-hover:opacity-100"></div>
             
             <img
-              src="/src/assets/images/me.png"
+              :src="meImg"
               alt="Berol"
               class="w-[95%] -top-[15%] relative h-[95%] object-cover object-top group-hover:scale-105 transition-all duration-700"
             />
