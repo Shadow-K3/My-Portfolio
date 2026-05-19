@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import backImg from '@/assets/images/back.png';
 import meImg from '@/assets/images/me.png';
 
-const { t, locale } = useI18n({ useScope: 'global' })
+const { t } = useI18n()
 
 const displayedTitle = ref("")
 const titleIndex = ref(0)

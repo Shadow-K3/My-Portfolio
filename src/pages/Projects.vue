@@ -7,6 +7,8 @@ const { t, locale } = useI18n({ useScope: 'global' });
 const isDownloading = ref(false);
 const downloadProgress = ref(0);
 
+const { t } = useI18n()
+
 // Gestion des icônes Lucide
 const refreshIcons = () => {
   setTimeout(() => {

@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { Box } from 'lucide-vue-next'
 
 const route = useRoute()
-const { locale, t } = useI18n({ useScope: 'global' })
+const { t } = useI18n()
 
 // =========================
 // STATES

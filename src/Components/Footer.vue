@@ -67,7 +67,7 @@
 <script setup>
 import { onMounted, watch } from 'vue'
 import { createIcons, ArrowRight, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
-import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const { locale, t } = useI18n({ useScope: 'global' })
 

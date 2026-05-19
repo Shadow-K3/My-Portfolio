@@ -5,6 +5,8 @@ const liquidContainer = ref(null)
 const backToTopBtn   = ref(null)
 const backToTopWrapper = ref(null)
 
+const { t } = useI18n()
+
 let rafId = null
 
 // ────────────────────────────────────────────────
@@ -90,14 +92,14 @@ onBeforeUnmount(() => {
   <!-- Your template stays exactly the same -->
   <div
     ref="backToTopWrapper"
-    class="fixed bottom-8 right-8 z-50 transition-all duration-500 opacity-0 translate-y-4 pointer-events-none"
+    class="fixed z-50 transition-all duration-500 translate-y-4 opacity-0 pointer-events-none bottom-8 right-8"
   >
     <button
       ref="backToTopBtn"
       class="relative w-14 h-14 md:w-16 md:h-16 bg-[#0A192F] rounded-full flex items-center justify-center overflow-hidden shadow-2xl ring-1 ring-white/10 hover:scale-105 active:scale-95 transition-transform group focus:outline-none cursor-pointer"
       @click="scrollToTop"
     >
-      <p style="display:inline-block; transform: rotate(-90deg);" class="text-xl text-teal-700 z-50 font-bold">~~></p>
+      <p style="display:inline-block; transform: rotate(-90deg);" class="z-50 text-xl font-bold text-teal-700">~~></p>
 
       <div
         ref="liquidContainer"
@@ -138,7 +140,7 @@ onBeforeUnmount(() => {
           </path>
         </svg>
 
-        <div class="absolute top-6 left-0 w-full h-full bg-teal-200"></div>
+        <div class="absolute left-0 w-full h-full bg-teal-200 top-6"></div>
       </div>
     </button>
   </div>
