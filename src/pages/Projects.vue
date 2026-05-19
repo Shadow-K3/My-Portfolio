@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createIcons, Github, ExternalLink, FileText, Download } from 'lucide';
 
-const { t, locale } = useI18n({ useScope: 'global' });
+// const { t, locale } = useI18n({ useScope: 'global' });
 const isDownloading = ref(false);
 const downloadProgress = ref(0);
 

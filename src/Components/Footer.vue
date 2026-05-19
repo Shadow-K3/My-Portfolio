@@ -69,7 +69,7 @@ import { onMounted, watch } from 'vue'
 import { createIcons, ArrowRight, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
 const { t } = useI18n()
 
-const { locale, t } = useI18n({ useScope: 'global' })
+// const { locale, t } = useI18n({ useScope: 'global' })
 
 // Tes données sociales
 const footerSocials = [
