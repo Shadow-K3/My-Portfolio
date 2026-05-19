@@ -44,12 +44,6 @@ const typeEffect = () => {
   setTimeout(typeEffect, typingSpeed.value)
 }
 
-// Reset si on change de langue pour éviter les bugs d'index
-watch(locale, () => {
-  charIndex.value = 0
-  isDeleting.value = false
-  displayedTitle.value = ""
-})
 
 onMounted(() => {
   typeEffect()

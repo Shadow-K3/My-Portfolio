@@ -65,21 +65,21 @@
 
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted } from 'vue'
+import { useI18n } from 'vue-i18n' // 1. Importez useI18n
 import { createIcons, ArrowRight, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
+
+// 2. Définissez 't' ici (sans locale)
 const { t } = useI18n()
 
-// const { locale, t } = useI18n({ useScope: 'global' })
-
-// Tes données sociales
+// ... le reste de vos données sociales et fonctions
 const footerSocials = [
   { name: 'Github', icon: 'github', link: 'https://github.com/dashboard' },
   { name: 'Figma', icon: 'figma', link: 'https://www.figma.com' },
-  { name: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit' }
+  { name: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/feed/' }
 ];
 
 const refreshIcons = () => {
-  // Un petit délai pour s'assurer que Vue a fini de rendre le HTML
   setTimeout(() => {
     createIcons({
       icons: { Box, ArrowRight, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck }
@@ -88,11 +88,6 @@ const refreshIcons = () => {
 }
 
 onMounted(() => {
-  refreshIcons()
-})
-
-// TRÈS IMPORTANT : Re-scanner quand on change de langue
-watch(locale, () => {
   refreshIcons()
 })
 </script>

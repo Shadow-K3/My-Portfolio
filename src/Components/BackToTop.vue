@@ -5,7 +5,7 @@ const liquidContainer = ref(null)
 const backToTopBtn   = ref(null)
 const backToTopWrapper = ref(null)
 
-const { t } = useI18n()
+
 
 let rafId = null
 

@@ -15,10 +15,10 @@ const isRevealed = ref(false)
 
 const languages = ['EN', 'FR']
 
-const selectedLang = ref(
-  localStorage.getItem('user-locale')?.toUpperCase() ||
-  locale.value.toUpperCase()
-)
+// const selectLang = (lang) => {
+//   selectedLang.value = lang
+//   closeMenu()
+// }
 
 // =========================
 // NAV ITEMS
@@ -80,18 +80,18 @@ watch(
 // =========================
 // LIFECYCLE
 // =========================
-onMounted(() => {
-  setTimeout(() => {
-    isRevealed.value = true
-  }, 200)
+// onMounted(() => {
+//   setTimeout(() => {
+//     isRevealed.value = true
+//   }, 200)
 
-  const savedLocale = localStorage.getItem('user-locale')
+//   const savedLocale = localStorage.getItem('user-locale')
 
-  if (savedLocale) {
-    locale.value = savedLocale
-    selectedLang.value = savedLocale.toUpperCase()
-  }
-})
+//   if (savedLocale) {
+//     locale.value = savedLocale
+//     selectedLang.value = savedLocale.toUpperCase()
+//   }
+// })
 
 onUnmounted(() => {
   unlockBodyScroll()
