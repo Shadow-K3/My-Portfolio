@@ -99,11 +99,12 @@
   "aboutMe_methodDesc": "Every project begins with a rigorous {uml}. Mapping out logic before implementation ensures systems are maintainable, secure, and ready to scale.",
   "aboutMe_skillsTitle": "about-me",
   "aboutMe_eduTitle": "education",
-  "aboutMe_factsTitle": "fun-facts",
+  "aboutMe_factsTitle": "Miscellaneous info",
   "aboutMe_facts_0": "I don't like pictures 📸",
-  "aboutMe_facts_1": "I traveled 3 years back in time for this portfolio photo 😂",
+  "aboutMe_facts_1": "I learn something every day. I've never gone to sleep without learning something new",
   "aboutMe_facts_2": "Gamer & Movie enthusiast 🎮",
-  "aboutMe_facts_3": "Proudly from Cameroon 🇨🇲",
-  "aboutMe_facts_4": "Student @ Getsmarter",
-  "aboutMe_facts_5": "I engineer before I code 🛠️"
+  "aboutMe_facts_3": "My other favorite language? Silence.",
+  "aboutMe_facts_4": "Student @t Getsmarter",
+  "aboutMe_facts_5": "I design before I code 🛠️",
+  "aboutMe_facts_6": "I talk more to my computer than to humans. And the feeling is mutual"
 }

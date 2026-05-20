@@ -3,7 +3,6 @@
   <!-- HEADER (re‑renders on locale change) -->
   <!-- ========================= -->
   <header
-    
     class="sticky top-0 left-0 z-[200] w-full max-w-full overflow-x-hidden border-b border-white/5 bg-[#081120]/90 backdrop-blur-xl font-mono"
   >
     <div
@@ -19,6 +18,7 @@
       >
         <Box
           class="w-4 h-4 text-teal-400 logo-icon"
+          :class="{ 'spin-down': spinDirection === 'down', 'spin-up': spinDirection === 'up' }"
         />
 
         <div
@@ -192,6 +192,44 @@ const selectedLang = ref(currentLocale.value.toUpperCase())
 const languages = ['EN', 'FR']
 
 // =========================
+// SCROLL DIRECTION FOR LOGO SPIN
+// =========================
+const spinDirection = ref(null) // 'down' or 'up'
+let lastScrollY = 0
+let scrollTimer = null
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY
+  const delta = currentScrollY - lastScrollY
+  
+  if (delta > 5) {
+    // scrolling down
+    if (spinDirection.value !== 'down') {
+      spinDirection.value = 'down'
+      // remove class after animation ends
+      setTimeout(() => { spinDirection.value = null }, 600)
+    }
+  } else if (delta < -5) {
+    // scrolling up
+    if (spinDirection.value !== 'up') {
+      spinDirection.value = 'up'
+      setTimeout(() => { spinDirection.value = null }, 600)
+    }
+  }
+  
+  lastScrollY = currentScrollY
+}
+
+// throttle scroll events
+const throttledScroll = () => {
+  if (scrollTimer) return
+  scrollTimer = setTimeout(() => {
+    handleScroll()
+    scrollTimer = null
+  }, 50)
+}
+
+// =========================
 // SAFE NAVIGATION TRANSLATION
 // =========================
 const getNavTranslation = (id) => {
@@ -268,9 +306,15 @@ onMounted(() => {
   setTimeout(() => {
     isRevealed.value = true
   }, 200)
+
+  // initial scroll position
+  lastScrollY = window.scrollY
+  window.addEventListener('scroll', throttledScroll)
 })
 
 onUnmounted(() => {
+  window.removeEventListener('scroll', throttledScroll)
+  if (scrollTimer) clearTimeout(scrollTimer)
   unlockBodyScroll()
 })
 </script>
@@ -306,6 +350,25 @@ body {
 
 .group:hover .logo-icon {
   transform: rotate(180deg) scale(1.08);
+}
+
+/* ========== SPIN ANIMATIONS FOR SCROLL ========== */
+.logo-icon.spin-down {
+  animation: spinClockwise 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.logo-icon.spin-up {
+  animation: spinCounterClockwise 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes spinClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
 }
 
 .reveal-wrapper {

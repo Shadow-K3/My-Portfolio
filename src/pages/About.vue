@@ -1,5 +1,5 @@
 <template>
-  <div  class="max-w-[1100px] mx-auto py-12 relative z-10">
+  <div class="max-w-[1100px] mx-auto py-12 relative z-10">
     
     <div class="mb-16">
       <router-link to="/" class="flex items-center gap-2 mb-8 font-mono text-sm text-teal-400 transition-colors hover:text-white group">
@@ -22,17 +22,38 @@
         </div>
       </div>
 
+      <!-- ======================== -->
+      <!-- IMAGE AVEC SCAN + TEXTES  -->
+      <!-- ======================== -->
       <div class="relative z-10 flex-1 group">
         <div class="relative w-64 mx-auto overflow-hidden border shadow-2xl h-80 shadow-teal-900/20 border-slate-800">
+          <!-- Image de base (noir & blanc) -->
           <div class="absolute inset-0 bg-slate-900">
             <img src="../assets/images/me2.png" alt="Berol Dark" class="object-cover w-full h-full grayscale brightness-50 contrast-100" />
           </div>
+          <!-- Image révélée par le scan (couleur) -->
           <div class="absolute inset-0 scan-reveal">
             <img src="../assets/images/me2.png" alt="Berol Reveal" class="object-cover w-full h-full" />
           </div>
+          <!-- Ligne de scan -->
           <div class="absolute top-0 left-0 w-full h-[2px] bg-teal-400 shadow-[0_0_15px_#2dd4bf] z-30 scan-line"></div>
+          <!-- Coins décoratifs -->
           <div class="absolute top-0 left-0 z-40 w-4 h-4 border-t-2 border-l-2 border-teal-400"></div>
           <div class="absolute bottom-0 right-0 z-40 w-4 h-4 border-b-2 border-r-2 border-teal-400"></div>
+          
+          <!-- ========== TEXTES QUI SUIVENT LE SCAN ========== -->
+          <!-- Texte BACKEND (visible pendant la partie sombre) -->
+          <div class="absolute inset-0 z-50 flex items-center justify-center pointer-events-none text-backend">
+            <span class="px-3 py-1 text-sm font-bold tracking-widest text-white uppercase font-mono bg-black/60 backdrop-blur-sm rounded border border-teal-400/50">
+              BACKEND
+            </span>
+          </div>
+          <!-- Texte FRONTEND (visible pendant la partie couleur) -->
+          <div class="absolute inset-0 z-50 flex items-center justify-center pointer-events-none text-frontend">
+            <span class="px-3 py-1 text-sm font-bold tracking-widest text-white uppercase font-mono bg-black/60 backdrop-blur-sm rounded border border-teal-400/50">
+              FRONTEND
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -140,11 +161,13 @@ const factsArray = [
   m.aboutMe_facts_2(),
   m.aboutMe_facts_3(),
   m.aboutMe_facts_4(),
-  m.aboutMe_facts_5()
+  m.aboutMe_facts_5(),
+  m.aboutMe_facts_6(),
 ]
 </script>
 
 <style scoped>
+/* ========== SCAN EFFECT EXISTANT ========== */
 .scan-reveal { clip-path: inset(0 0 100% 0); z-index: 20; }
 .scan-line { opacity: 0; }
 
@@ -160,4 +183,51 @@ const factsArray = [
 
 @keyframes scan-move { 0%, 100% { top: 0%; opacity: 0; } 5%, 95% { opacity: 1; } 50% { top: 100%; } }
 @keyframes reveal-down { 0%, 100% { clip-path: inset(0 0 100% 0); } 50% { clip-path: inset(0 0 0% 0); } }
+
+/* ========== NOUVEAUX TEXTES QUI SUIVENT LE SCAN ========== */
+/* Les deux textes sont centrés et masqués par défaut */
+.text-backend,
+.text-frontend {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+/* Sur mobile : animation permanente */
+@media (max-width: 767px) {
+  .text-backend {
+    animation: fadeBackendMobile 4s ease-in-out infinite;
+  }
+  .text-frontend {
+    animation: fadeFrontendMobile 4s ease-in-out infinite;
+  }
+}
+
+/* Sur desktop : animation au survol */
+@media (min-width: 768px) {
+  .group:hover .text-backend {
+    animation: fadeBackendDesktop 2.5s ease-in-out infinite;
+  }
+  .group:hover .text-frontend {
+    animation: fadeFrontendDesktop 2.5s ease-in-out infinite;
+  }
+}
+
+/* Keyframes : BACKEND visible pendant la première moitié (partie sombre) */
+@keyframes fadeBackendMobile {
+  0%, 40% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes fadeFrontendMobile {
+  0%, 40% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes fadeBackendDesktop {
+  0%, 40% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes fadeFrontendDesktop {
+  0%, 40% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
 </style>
