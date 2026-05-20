@@ -1,5 +1,5 @@
 <template>
-  <footer class="pt-20 pb-12 mt-20 border-t border-slate-800">
+  <footer  class="pt-20 pb-12 mt-20 border-t border-slate-800">
     <div class="max-w-[1100px] mx-auto px-6">
 
       <div class="flex flex-col items-start justify-between gap-12 mb-16 md:flex-row">
@@ -22,19 +22,19 @@
                   class="absolute inline-flex w-full h-full bg-teal-400 rounded-full opacity-75 animate-ping"></span>
                 <span class="relative inline-flex w-2 h-2 bg-teal-500 rounded-full"></span>
               </span>
-              {{ t('footer.status') }}: <span class="text-teal-400">{{ t('footer.online') }}</span>
+              {{ m.footer_status() }}: <span class="text-teal-400">{{ m.footer_online() }}</span>
             </div>
           </div>
 
             <p class="max-w-sm font-mono text-sm leading-relaxed text-slate-500">
-            {{ t('footer.tagline') }} <br>
-            {{ t('footer.location') }}
+            {{ m.footer_tagline() }} <br>
+            {{ m.footer_location() }}
           </p>
         </div>
 
         <div class="flex flex-col w-full gap-6 md:items-end md:w-auto">
           <div class="space-y-2 md:text-right">
-            <span class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">{{ t('footer.reachOut') }}</span>
+            <span class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">{{ m.footer_reachOut() }}</span>
             <a href="mailto:tchoumiberol816@gmail.com"
               class="block text-lg text-white transition-colors hover:text-teal-400">
               tchoumiberol816@gmail.com
@@ -56,23 +56,19 @@
         class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between gap-4 text-[10px] font-mono text-slate-600 uppercase tracking-widest">
         <span>© 2026 ROOT_ACCESS_GRANTED</span>
         <span class="hidden text-slate-800 md:block">----------</span>
-        <span>{{ t('footer.madeWith') }} <span class="text-teal-500">Vue.js</span> // No Rights Reserved</span>
+        <span>{{ m.footer_madeWith() }} <span class="text-teal-500">Vue.js</span> // No Rights Reserved</span>
       </div>
 
     </div>
   </footer>
 </template>
 
-
 <script setup>
-import { onMounted } from 'vue'
-import { useI18n } from 'vue-i18n' // 1. Importez useI18n
+import { onMounted, watch } from 'vue'
+import * as m from '@/paraglide/messages'
+import { currentLocale } from '@/composables/useLocale'
 import { createIcons, ArrowRight, Box, Github, Figma, Linkedin, Mail, MessageSquare, ShieldCheck } from 'lucide'
 
-// 2. Définissez 't' ici (sans locale)
-const { t } = useI18n()
-
-// ... le reste de vos données sociales et fonctions
 const footerSocials = [
   { name: 'Github', icon: 'github', link: 'https://github.com/dashboard' },
   { name: 'Figma', icon: 'figma', link: 'https://www.figma.com' },
@@ -86,6 +82,11 @@ const refreshIcons = () => {
     })
   }, 10)
 }
+
+// Re‑run icons after language change (DOM updates)
+watch(currentLocale, () => {
+  refreshIcons()
+})
 
 onMounted(() => {
   refreshIcons()

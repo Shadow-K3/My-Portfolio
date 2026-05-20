@@ -1,95 +1,435 @@
+<template>
+  <!-- ========================= -->
+  <!-- HEADER (re‑renders on locale change) -->
+  <!-- ========================= -->
+  <header
+    :key="currentLocale"
+    class="sticky top-0 left-0 z-[200] w-full max-w-full overflow-x-hidden border-b border-white/5 bg-[#081120]/90 backdrop-blur-xl font-mono"
+  >
+    <div
+      class="mx-auto flex h-[68px] w-full max-w-[1200px] items-center justify-between px-4 sm:px-5"
+    >
+      <!-- ========================= -->
+      <!-- LOGO -->
+      <!-- ========================= -->
+      <router-link
+        to="/"
+        aria-label="Homepage"
+        class="group z-[130] flex shrink-0 items-center gap-2 outline-none"
+      >
+        <Box
+          class="w-4 h-4 text-teal-400 logo-icon"
+        />
+
+        <div
+          class="flex items-center text-[14px] font-bold tracking-tight text-teal-400 sm:text-[15px]"
+        >
+          <div class="structure-logo">
+            <span class="initial">T</span>
+
+            <div
+              class="reveal-wrapper"
+              :class="{ 'is-active': isRevealed }"
+            >
+              <span class="reveal-content">choumi</span>
+            </div>
+          </div>
+
+          <span class="w-1"></span>
+
+          <div class="structure-logo">
+            <span class="initial">B</span>
+
+            <div
+              class="reveal-wrapper delay-berol"
+              :class="{ 'is-active': isRevealed }"
+            >
+              <span class="reveal-content">erol</span>
+            </div>
+          </div>
+        </div>
+      </router-link>
+
+      <!-- ========================= -->
+      <!-- DESKTOP NAV -->
+      <!-- ========================= -->
+      <nav class="hidden items-center gap-6 text-[13px] md:flex">
+        <router-link
+          v-for="item in navItems"
+          :key="item.id"
+          :to="item.path"
+          exact-active-class="text-teal-400 border-teal-400/40"
+          class="pb-1 border-b border-transparent nav-link text-slate-400"
+        >
+          <span class="mr-1 text-teal-400/50">#</span>
+          {{ getNavTranslation(item.id) }}
+        </router-link>
+
+        <!-- LANG -->
+        <div class="flex gap-2 pl-3 ml-3 border-l border-white/10">
+          <button
+            v-for="lang in languages"
+            :key="lang"
+            @click="selectLang(lang)"
+            type="button"
+            class="lang-btn text-[11px] font-bold"
+            :class="
+              selectedLang === lang
+                ? 'text-teal-400'
+                : 'text-slate-500 hover:text-white'
+            "
+          >
+            {{ lang }}
+          </button>
+        </div>
+      </nav>
+
+      <!-- ========================= -->
+      <!-- MOBILE BUTTON -->
+      <!-- ========================= -->
+      <button
+        @click="toggleMenu"
+        type="button"
+        aria-label="Toggle Menu"
+        class="z-[130] p-1 text-slate-300 md:hidden shrink-0"
+      >
+        <div class="relative flex flex-col justify-between w-5 h-3">
+          <span
+            class="burger-line"
+            :class="{
+              'translate-y-[5px] rotate-45 bg-teal-400': isMenuOpen
+            }"
+          />
+
+          <span
+            class="burger-line"
+            :class="{
+              'opacity-0 scale-0': isMenuOpen
+            }"
+          />
+
+          <span
+            class="burger-line"
+            :class="{
+              '-translate-y-[5px] -rotate-45 bg-teal-400': isMenuOpen
+            }"
+          />
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================= -->
+  <!-- MOBILE MENU -->
+  <!-- ========================= -->
+  <Transition name="mobile-menu">
+    <div
+      v-if="isMenuOpen"
+      class="fixed top-[68px] left-0 right-0 bottom-0 z-[190] flex flex-col overflow-y-auto bg-[#081120]/90 backdrop-blur-xl md:hidden"
+    >
+      <!-- CENTER -->
+      <div
+        class="flex flex-col items-center justify-center flex-1 gap-2 py-6"
+      >
+        <router-link
+          v-for="(item, index) in navItems"
+          :key="item.id"
+          :to="item.path"
+          exact-active-class="text-teal-400 border-teal-400/20 scale-[1.02]"
+          class="mobile-card flex h-[74px] w-full max-w-[300px] flex-col items-center justify-center gap-1 border border-white/5 bg-white/[0.02] text-[14px] font-bold tracking-tight text-slate-200"
+          :style="{
+            transitionDelay: `${index * 70}ms`
+          }"
+        >
+          <span
+            class="text-[10px] font-normal text-teal-400/60"
+          >
+            0{{ index + 1 }}.
+          </span>
+
+          {{ getNavTranslation(item.id).toUpperCase() }}
+        </router-link>
+      </div>
+
+      <!-- LANG -->
+      <div
+        class="flex items-center justify-center gap-3 pb-6"
+      >
+        <button
+          v-for="lang in languages"
+          :key="lang"
+          @click="selectLang(lang)"
+          type="button"
+          class="lang-mobile-btn flex h-[36px] min-w-[70px] items-center justify-center rounded-full border text-[11px] font-bold"
+          :class="
+            selectedLang === lang
+              ? 'border-teal-400 bg-teal-400/10 text-teal-400'
+              : 'border-white/10 text-slate-500 hover:text-white'
+          "
+        >
+          {{ lang }}
+        </button>
+      </div>
+    </div>
+  </Transition>
+</template>
+
 <script setup>
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { Box } from 'lucide-vue-next'
+import * as m from '@/paraglide/messages'
+import { currentLocale, switchLocale } from '@/composables/useLocale'
+
+const route = useRoute()
+
+// =========================
+// STATES
+// =========================
+const isMenuOpen = ref(false)
+const isRevealed = ref(false)
+const selectedLang = ref(currentLocale.value.toUpperCase())
+const languages = ['EN', 'FR']
+
+// Helper to get navigation translation from flattened keys
+const getNavTranslation = (id) => {
+  // Map: nav_home, nav_projects, nav_about, nav_contact
+  const key = `nav_${id}`
+  return m[key]()
+}
+
+// =========================
+// LANGUAGE SWITCHER (using ParaglideJS)
+// =========================
+const selectLang = (lang) => {
+  const normalizedLang = lang.toLowerCase()
+  switchLocale(normalizedLang)   // updates currentLocale and localStorage internally
+  selectedLang.value = lang      // update local display
+  closeMenu()
+}
+
+// Watch for locale changes from outside (e.g., if localStorage changes elsewhere)
+watch(currentLocale, (newLocale) => {
+  selectedLang.value = newLocale.toUpperCase()
+})
+
+// =========================
+// BODY SCROLL LOCK
+// =========================
+const lockBodyScroll = () => {
+  document.body.style.overflow = 'hidden'
+  document.body.classList.add('no-scroll')
+}
+const unlockBodyScroll = () => {
+  document.body.style.overflow = ''
+  document.body.classList.remove('no-scroll')
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
+  unlockBodyScroll()
+}
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  isMenuOpen.value ? lockBodyScroll() : unlockBodyScroll()
+}
+
+// =========================
+// NAV ITEMS
+// =========================
+const navItems = [
+  { id: 'home', path: '/' },
+  { id: 'projects', path: '/projects' },
+  { id: 'about', path: '/about' },
+  { id: 'contact', path: '/contact' }
+]
+
+// =========================
+// WATCHERS
+// =========================
+watch(
+  () => route.path,
+  () => {
+    closeMenu()
+  }
+)
+
+// =========================
+// LIFECYCLE
+// =========================
+onMounted(() => {
+  setTimeout(() => {
+    isRevealed.value = true
+  }, 200)
+
+  // Sync selectedLang with currentLocale after mount
+  selectedLang.value = currentLocale.value.toUpperCase()
+})
+
+onUnmounted(() => {
+  unlockBodyScroll()
+})
 </script>
 
-<template>
-  <section id="skills" class="relative mb-32 overflow-hidden lg:overflow-visible">
-    <div class="flex items-center gap-4 mb-12">
-        <h2 class="flex items-center text-3xl font-bold tracking-tight text-white cursor-default group">
-        <span class="text-teal-400 transition-transform group-hover:translate-x-1">#</span>
-        {{ t('skills.title') }}
-      </h2>
-      <div class="h-[1px] bg-slate-800 flex-grow max-w-[250px] relative overflow-hidden">
-         <div class="absolute inset-0 bg-teal-400/40 translate-x-[-100%] animate-[slide_4s_infinite]"></div>
-      </div>
-    </div>
+<style scoped>
+/* ========================= */
+/* GLOBAL FIX */
+/* ========================= */
+html,
+body {
+  overflow-x: hidden;
+}
 
-    <div class="flex flex-col items-start gap-12 lg:flex-row">
-      
-      <div class="w-full lg:w-1/3 relative hidden lg:block min-h-[350px]">
-        <div class="absolute top-0 left-0 text-slate-700/40 leading-[0.8] tracking-[0.5em] text-xs font-mono select-none">
-          <p v-for="i in 6" :key="i">010101010101</p>
-        </div>
-        
-        <div class="absolute inset-0 flex items-center justify-center opacity-60">
-          <svg width="200" height="200" viewBox="0 0 156 156" fill="none" class="filter drop-shadow-[0_0_8px_rgba(45,212,191,0.2)]">
-            <defs>
-              <filter id="glow-skills"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <path d="M77.5 78.5H38.75V117.25H77.5V156H0V39.75H77.5V78.5Z" stroke="#1e293b" stroke-width="1" />
-            <path d="M155 117.25H77.5V78.5H116.25V39.75H77.5V1H155V117.25Z" stroke="#1e293b" stroke-width="1" />
-            <path d="M77.5 78.5H38.75V117.25H77.5V156H0V39.75H77.5V78.5Z" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="40 120" filter="url(#glow-skills)">
-              <animate attributeName="stroke-dashoffset" from="160" to="0" dur="4s" repeatCount="indefinite" />
-            </path>
-            <path d="M155 117.25H77.5V78.5H116.25V39.75H77.5V1H155V117.25Z" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="40 120" filter="url(#glow-skills)">
-              <animate attributeName="stroke-dashoffset" from="160" to="0" dur="4s" begin="2s" repeatCount="indefinite" />
-            </path>
-          </svg>
-        </div>
-        <div class="absolute w-16 h-16 rotate-45 border bottom-4 right-10 border-slate-800"></div>
-      </div>
+/* ========================= */
+/* LOGO */
+/* ========================= */
+.structure-logo {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+}
 
-      <div class="grid w-full grid-cols-1 gap-4 lg:w-2/3 md:grid-cols-2 lg:grid-cols-3">
-        
-        <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
-          <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.languages') }}
-          </h3>
-          <div class="flex flex-wrap gap-2 p-4">
-            <span v-for="s in ['PHP', 'DART', 'JS', 'TS',]" :key="s" class="font-mono text-sm transition-colors cursor-default text-slate-400 hover:text-teal-400">
-              {{ s }}
-            </span>
-          </div>
-        </div>
+.initial {
+  flex-shrink: 0;
+}
 
-        <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
-          <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.frameworks') }}
-          </h3>
-          <div class="flex flex-wrap gap-2 p-4 font-mono text-sm text-slate-400">
-            React • Vue • Laravel • Flutter • 
-          </div>
-        </div>
+.logo-icon {
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s ease;
+}
 
-        <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group lg:row-span-1">
-          <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.databases') }}
-          </h3>
-          <div class="p-4 font-mono text-sm text-slate-400">
-            SQLite • MariaDB •
-          </div>
-        </div>
+.group:hover .logo-icon {
+  transform: rotate(180deg) scale(1.08);
+}
 
-        <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group md:col-span-2">
-          <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.tools') }}
-          </h3>
-          <div class="flex flex-wrap p-4 font-mono text-sm gap-x-6 gap-y-2 text-slate-400">
-            <span>VSCODE</span> <span>LINUX (KALI/ARCH)</span> <span>FIGMA</span> <span>GIT</span> <span>DOCKER</span>
-          </div>
-        </div>
+.reveal-wrapper {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-5px);
 
-        <div class="transition-all border border-slate-800 bg-slate-900/20 hover:border-teal-400/30 group">
-          <h3 class="p-3 font-mono text-sm tracking-widest text-white uppercase border-b border-slate-800 bg-slate-900/40">
-            <span class="mr-2 font-bold text-teal-400">></span>{{ t('skills.categories.webCore') }}
-          </h3>
-          <div class="p-4 font-mono text-sm text-slate-400">
-            HTML5 • CSS3 • TailwindCSS • Bootstrap
-          </div>
-        </div>
+  transition:
+    max-width 1s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-      </div>
-    </div>
-  </section>
-</template>
+.reveal-wrapper.is-active {
+  max-width: 90px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.delay-berol {
+  transition-delay: 0.18s;
+}
+
+.reveal-content {
+  display: inline-block;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* ========================= */
+/* NAVIGATION */
+/* ========================= */
+.nav-link {
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
+}
+
+.lang-btn,
+.lang-mobile-btn {
+  transition:
+    all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ========================= */
+/* BURGER */
+/* ========================= */
+.burger-line {
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    background-color 0.35s ease,
+    scale 0.35s ease;
+}
+
+/* ========================= */
+/* MOBILE MENU */
+/* ========================= */
+.mobile-card {
+  opacity: 1;
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    opacity 0.45s ease;
+}
+
+.mobile-card:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.45s ease;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.98);
+}
+
+.mobile-menu-enter-to,
+.mobile-menu-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ========================= */
+/* ACCESSIBILITY */
+/* ========================= */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgb(45 212 191);
+  outline-offset: 2px;
+}
+
+/* ========================= */
+/* RESPONSIVE FIXES */
+/* ========================= */
+@media (max-width: 360px) {
+  .reveal-wrapper.is-active {
+    max-width: 68px;
+  }
+}
+</style>

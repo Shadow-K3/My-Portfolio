@@ -1,109 +1,10 @@
-<script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { Box } from 'lucide-vue-next'
-
-const route = useRoute()
-const { t } = useI18n()
-
-// =========================
-// STATES
-// =========================
-const isMenuOpen = ref(false)
-const isRevealed = ref(false)
-
-const languages = ['EN', 'FR']
-
-// const selectLang = (lang) => {
-//   selectedLang.value = lang
-//   closeMenu()
-// }
-
-// =========================
-// NAV ITEMS
-// =========================
-const navItems = [
-  { id: 'home', path: '/' },
-  { id: 'projects', path: '/projects' },
-  { id: 'about', path: '/about' },
-  { id: 'contact', path: '/contact' }
-]
-
-// =========================
-// FUNCTIONS
-// =========================
-const lockBodyScroll = () => {
-  document.body.style.overflow = 'hidden'
-}
-
-const unlockBodyScroll = () => {
-  document.body.style.overflow = ''
-}
-
-const closeMenu = () => {
-  isMenuOpen.value = false
-  unlockBodyScroll()
-}
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-
-  if (isMenuOpen.value) {
-    lockBodyScroll()
-  } else {
-    unlockBodyScroll()
-  }
-}
-
-const selectLang = (lang) => {
-  selectedLang.value = lang
-
-  const normalizedLang = lang.toLowerCase()
-
-  locale.value = normalizedLang
-  localStorage.setItem('user-locale', normalizedLang)
-
-  closeMenu()
-}
-
-// =========================
-// WATCHERS
-// =========================
-watch(
-  () => route.path,
-  () => {
-    closeMenu()
-  }
-)
-
-// =========================
-// LIFECYCLE
-// =========================
-// onMounted(() => {
-//   setTimeout(() => {
-//     isRevealed.value = true
-//   }, 200)
-
-//   const savedLocale = localStorage.getItem('user-locale')
-
-//   if (savedLocale) {
-//     locale.value = savedLocale
-//     selectedLang.value = savedLocale.toUpperCase()
-//   }
-// })
-
-onUnmounted(() => {
-  unlockBodyScroll()
-})
-</script>
-
 <template>
   <!-- ========================= -->
-  <!-- HEADER -->
+  <!-- HEADER (re‑renders on locale change) -->
   <!-- ========================= -->
   <header
-    class="sticky top-0 left-0 z-[200] w-full border-b border-white/5 bg-[#081120]/90 backdrop-blur-xl font-mono"
+    
+    class="sticky top-0 left-0 z-[200] w-full max-w-full overflow-x-hidden border-b border-white/5 bg-[#081120]/90 backdrop-blur-xl font-mono"
   >
     <div
       class="mx-auto flex h-[68px] w-full max-w-[1200px] items-center justify-between px-4 sm:px-5"
@@ -114,7 +15,7 @@ onUnmounted(() => {
       <router-link
         to="/"
         aria-label="Homepage"
-        class="group z-[130] flex items-center gap-2 outline-none"
+        class="group z-[130] flex shrink-0 items-center gap-2 outline-none"
       >
         <Box
           class="w-4 h-4 text-teal-400 logo-icon"
@@ -161,7 +62,7 @@ onUnmounted(() => {
           class="pb-1 border-b border-transparent nav-link text-slate-400"
         >
           <span class="mr-1 text-teal-400/50">#</span>
-          {{ t(`nav.${item.id}`) }}
+          {{ getNavTranslation(item.id) }}
         </router-link>
 
         <!-- LANG -->
@@ -190,7 +91,7 @@ onUnmounted(() => {
         @click="toggleMenu"
         type="button"
         aria-label="Toggle Menu"
-        class="z-[130] p-1 text-slate-300 md:hidden"
+        class="z-[130] p-1 text-slate-300 md:hidden shrink-0"
       >
         <div class="relative flex flex-col justify-between w-5 h-3">
           <span
@@ -224,11 +125,11 @@ onUnmounted(() => {
   <Transition name="mobile-menu">
     <div
       v-if="isMenuOpen"
-      class="fixed top-[68px] left-0 right-0  bottom-0 z-[190] flex flex-col overflow-hidden bg-[#081120]/90 backdrop-blur-xl md:hidden"
+      class="fixed top-[68px] left-0 right-0 bottom-0 z-[190] flex flex-col overflow-y-auto bg-[#081120]/90 backdrop-blur-xl md:hidden"
     >
       <!-- CENTER -->
       <div
-        class="flex flex-col items-center justify-center flex-1 gap-2"
+        class="flex flex-col items-center justify-center flex-1 gap-2 py-6"
       >
         <router-link
           v-for="(item, index) in navItems"
@@ -246,13 +147,13 @@ onUnmounted(() => {
             0{{ index + 1 }}.
           </span>
 
-          {{ t(`nav.${item.id}`).toUpperCase() }}
+          {{ getNavTranslation(item.id).toUpperCase() }}
         </router-link>
       </div>
 
       <!-- LANG -->
       <div
-        class="flex items-center justify-center gap-3 pb-4"
+        class="flex items-center justify-center gap-3 pb-6"
       >
         <button
           v-for="lang in languages"
@@ -273,7 +174,109 @@ onUnmounted(() => {
   </Transition>
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { Box } from 'lucide-vue-next'
+import * as m from '@/paraglide/messages'
+import { currentLocale, switchLocale } from '@/composables/useLocale'
+
+const route = useRoute()
+
+// =========================
+// STATES
+// =========================
+const isMenuOpen = ref(false)
+const isRevealed = ref(false)
+const selectedLang = ref(currentLocale.value.toUpperCase())
+const languages = ['EN', 'FR']
+
+// =========================
+// SAFE NAVIGATION TRANSLATION
+// =========================
+const getNavTranslation = (id) => {
+  // Explicit mapping to avoid dynamic key issues
+  const translations = {
+    home: m.nav_home,
+    projects: m.nav_projects,
+    about: m.nav_about,
+    contact: m.nav_contact
+  }
+  const translator = translations[id]
+  return translator ? translator() : id
+}
+
+// =========================
+// LANGUAGE SWITCHER
+// =========================
+const selectLang = (lang) => {
+  const normalizedLang = lang.toLowerCase()
+  switchLocale(normalizedLang)   // updates currentLocale and localStorage
+  selectedLang.value = lang      // update local display
+  closeMenu()
+}
+
+// Watch for locale changes from outside
+watch(currentLocale, (newLocale) => {
+  selectedLang.value = newLocale.toUpperCase()
+})
+
+// =========================
+// BODY SCROLL LOCK
+// =========================
+const lockBodyScroll = () => {
+  document.body.style.overflow = 'hidden'
+}
+const unlockBodyScroll = () => {
+  document.body.style.overflow = ''
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
+  unlockBodyScroll()
+}
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  isMenuOpen.value ? lockBodyScroll() : unlockBodyScroll()
+}
+
+// =========================
+// NAV ITEMS
+// =========================
+const navItems = [
+  { id: 'home', path: '/' },
+  { id: 'projects', path: '/projects' },
+  { id: 'about', path: '/about' },
+  { id: 'contact', path: '/contact' }
+]
+
+// =========================
+// WATCHERS
+// =========================
+watch(
+  () => route.path,
+  () => {
+    closeMenu()
+  }
+)
+
+// =========================
+// LIFECYCLE
+// =========================
+onMounted(() => {
+  setTimeout(() => {
+    isRevealed.value = true
+  }, 200)
+})
+
+onUnmounted(() => {
+  unlockBodyScroll()
+})
+</script>
+
 <style scoped>
+/* All your existing styles remain exactly the same */
 /* ========================= */
 /* GLOBAL FIX */
 /* ========================= */
@@ -310,7 +313,7 @@ body {
   overflow: hidden;
   white-space: nowrap;
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translateX(-5px);
 
   transition:
     max-width 1s cubic-bezier(0.22, 1, 0.36, 1),
@@ -430,7 +433,7 @@ a:focus-visible {
 /* ========================= */
 @media (max-width: 360px) {
   .reveal-wrapper.is-active {
-    max-width: 75px;
+    max-width: 68px;
   }
 }
 </style>
