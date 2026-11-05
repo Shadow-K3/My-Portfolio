@@ -479,7 +479,7 @@ import { currentLocale } from '@/composables/useLocale'
 
 // Images imports
 import backImg from '@/assets/images/back.png'
-import meImg from '@/assets/images/me.png'
+import meImg from '@/assets/images/me.jpg'
 
 // ========== HERO TYPING ANIMATION ==========
 const displayedTitle = ref("")
